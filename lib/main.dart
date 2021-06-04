@@ -14,8 +14,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Name generator...",
-      home: LaundryDetailScreen(),
+      title: "Lista de Lavanderías",
+      home: WashiApp(),
     );
   }
 }
@@ -200,4 +200,3 @@ class WashiAppState extends State<WashiApp> {
     }));
   }
 }
-
