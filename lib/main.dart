@@ -11,6 +11,14 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+
+  void goDetails(Laundry laundry) {
+    Navigator.of(context).push(
+        MaterialPageRoute(builder: (_) => LaundryDetailScreen(laundry: laundry
+            )));
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -181,12 +189,6 @@ class WashiAppState extends State<WashiApp> {
           ),
         ),
       ),
-    );
-  }
-
-  void goDetails(Laundry laundry) {
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => LaundryDetailScreen(laundry: laundry)),
     );
   }
 }
