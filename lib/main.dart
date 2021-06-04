@@ -1,12 +1,17 @@
+import 'dart:js';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:washi_mobile_app_flutter/entities/Laundry.dart';
+
+import 'laundryDetail.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -123,9 +128,7 @@ class RandomWordsState extends State<RandomWords> {
       child: Card(
         child: InkWell(
           splashColor: Colors.blue.withAlpha(30),
-          onTap: () {
-            print('Card tapped.');
-          },
+          onTap: ()=> goDetails(laundry),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
@@ -139,6 +142,12 @@ class RandomWordsState extends State<RandomWords> {
           ),
         ),
       ),
+    );
+  }
+
+  void goDetails(Laundry laundry){
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (_)=> LaundryDetailScreen(laundry: laundry)),
     );
   }
 }
