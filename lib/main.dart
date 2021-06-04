@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:washi_mobile_app_flutter/Laundry.dart';
+import 'package:washi_mobile_app_flutter/entities/Laundry.dart';
 
 void main() {
   runApp(MyApp());
