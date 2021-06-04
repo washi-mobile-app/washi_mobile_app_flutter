@@ -102,6 +102,7 @@ class WashiAppState extends State<WashiApp> {
   ];
   List<Laundry> laundriesFiltered = <Laundry>[];
   final TextStyle biggerFont = TextStyle(fontSize: 18);
+  late BuildContext context;
 
   @override
   initState() {
@@ -129,6 +130,7 @@ class WashiAppState extends State<WashiApp> {
 
   @override
   Widget build(BuildContext context) {
+    this.context = context;
     return Scaffold(
       appBar: AppBar(
         title: Text("Lista de Lavanderías"),
@@ -185,8 +187,16 @@ class WashiAppState extends State<WashiApp> {
   }
 
   void goDetails(Laundry laundry) {
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => LaundryDetailScreen(laundry: laundry)),
-    );
+    Navigator.of(context)
+        .push(MaterialPageRoute<void>(builder: (BuildContext context) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text("Favorites words"),
+        ),
+        body: Column(children: <Widget>[
+          Text('${laundry.name}'),
+        ]),
+      );
+    }));
   }
 }
