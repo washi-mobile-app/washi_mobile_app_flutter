@@ -11,17 +11,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Name generator...",
-      home: RandomWords(),
+      home: WashiApp(),
     );
   }
 }
 
-class RandomWords extends StatefulWidget {
+class WashiApp extends StatefulWidget {
   @override
-  RandomWordsState createState() => RandomWordsState();
+  WashiAppState createState() => WashiAppState();
 }
 
-class RandomWordsState extends State<RandomWords> {
+class WashiAppState extends State<WashiApp> {
   final List<Laundry> laundries = <Laundry>[
     Laundry(
         name: "Lavanderia Akiraki",
@@ -96,26 +96,70 @@ class RandomWordsState extends State<RandomWords> {
         phone: 990587526,
         imageLogo: "sample"),
   ];
+  List<Laundry> laundriesFiltered = <Laundry>[];
   final TextStyle biggerFont = TextStyle(fontSize: 18);
+
+  @override
+  initState() {
+    laundriesFiltered = laundries;
+    super.initState();
+  }
+
+  void filter(String enteredKeyword) {
+    print(enteredKeyword);
+    List<Laundry> results = <Laundry>[];
+    if (enteredKeyword.isEmpty) {
+      results = laundries;
+    } else {
+      results = laundries
+          .where((laundry) =>
+              laundry.name.toLowerCase().contains(enteredKeyword.toLowerCase()))
+          .toList();
+    }
+
+    // Refresh the UI
+    setState(() {
+      laundriesFiltered = results;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Name generator..."),
+        title: Text("Lista de Lavanderías"),
       ),
       body: buildLaundries(),
     );
   }
 
   Widget buildLaundries() {
-    return ListView.builder(
-      padding: EdgeInsets.all(16),
-      itemCount: laundries.length,
-      itemBuilder: (BuildContext context, int i) {
-        return buildLaundryCard(laundries[i]);
-      },
-    );
+    // return ListView.builder(
+    //   padding: EdgeInsets.all(16),
+    //   itemCount: laundries.length,
+    //   itemBuilder: (BuildContext context, int i) {
+    //     return buildLaundryCard(laundries[i]);
+    //   },
+    // );
+    return Column(children: [
+      TextField(
+        onChanged: (value) => filter(value),
+        decoration: InputDecoration(
+            labelText: 'Buscar', suffixIcon: Icon(Icons.search)),
+      ),
+      SizedBox(
+        height: 2,
+      ),
+      Expanded(
+        child: ListView.builder(
+          padding: EdgeInsets.all(16),
+          itemCount: laundriesFiltered.length,
+          itemBuilder: (BuildContext context, int i) {
+            return buildLaundryCard(laundriesFiltered[i]);
+          },
+        ),
+      )
+    ]);
   }
 
   Widget buildLaundryCard(Laundry laundry) {
@@ -123,19 +167,20 @@ class RandomWordsState extends State<RandomWords> {
       child: Card(
         child: InkWell(
           splashColor: Colors.blue.withAlpha(30),
-          onTap: () {
-            print('Card tapped.');
-          },
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              ListTile(
-                leading: FlutterLogo(size: 56.0),
-                title: Text(laundry.name),
-                subtitle: Text(
-                    "${laundry.address}\n${laundry.district}\n${laundry.email}\n${laundry.phone}"),
-              ),
-            ],
+          onTap: () {},
+          child: Padding(
+            padding: EdgeInsets.all(8),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                ListTile(
+                  leading: FlutterLogo(size: 56.0),
+                  title: Text(laundry.name),
+                  subtitle: Text(
+                      "${laundry.address}\n${laundry.district}\n${laundry.email}\n${laundry.phone}"),
+                ),
+              ],
+            ),
           ),
         ),
       ),
