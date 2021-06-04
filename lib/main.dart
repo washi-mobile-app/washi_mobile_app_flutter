@@ -1,6 +1,10 @@
+import 'dart:js';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:washi_mobile_app_flutter/entities/Laundry.dart';
+
+import 'laundryDetail.dart';
 
 void main() {
   runApp(MyApp());
@@ -134,13 +138,6 @@ class WashiAppState extends State<WashiApp> {
   }
 
   Widget buildLaundries() {
-    // return ListView.builder(
-    //   padding: EdgeInsets.all(16),
-    //   itemCount: laundries.length,
-    //   itemBuilder: (BuildContext context, int i) {
-    //     return buildLaundryCard(laundries[i]);
-    //   },
-    // );
     return Column(children: [
       TextField(
         onChanged: (value) => filter(value),
@@ -167,7 +164,7 @@ class WashiAppState extends State<WashiApp> {
       child: Card(
         child: InkWell(
           splashColor: Colors.blue.withAlpha(30),
-          onTap: () {},
+          onTap: () => goDetails(laundry),
           child: Padding(
             padding: EdgeInsets.all(8),
             child: Column(
@@ -184,6 +181,12 @@ class WashiAppState extends State<WashiApp> {
           ),
         ),
       ),
+    );
+  }
+
+  void goDetails(Laundry laundry) {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => LaundryDetailScreen(laundry: laundry)),
     );
   }
 }
