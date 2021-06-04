@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Name generator...",
-      home: WashiApp(),
+      home: LaundryDetailScreen(),
     );
   }
 }
@@ -200,3 +200,4 @@ class WashiAppState extends State<WashiApp> {
     }));
   }
 }
+
