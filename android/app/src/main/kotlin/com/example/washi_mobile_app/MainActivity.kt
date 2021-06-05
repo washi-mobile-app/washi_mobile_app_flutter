@@ -1,4 +1,4 @@
-package com.example.washi_flutter_app
+package com.example.washi_mobile_app
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:washi_mobile_app_flutter/entities/laundry.dart';
+import 'package:washi_flutter_app/entities/laundry.dart';
 
 class LaundryDetailScreen extends StatelessWidget {
   final Laundry laundry;

@@ -1,4 +1,4 @@
-# washi_mobile_app_flutter
+# washi_flutter_app
 
 A new Flutter project.
 
