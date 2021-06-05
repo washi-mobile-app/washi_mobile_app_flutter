@@ -2,7 +2,7 @@ import 'dart:js';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:washi_mobile_app_flutter/entities/Laundry.dart';
+import 'package:washi_mobile_app_flutter/entities/laundry.dart';
 
 import 'laundryDetail.dart';
 
@@ -188,15 +188,6 @@ class WashiAppState extends State<WashiApp> {
 
   void goDetails(Laundry laundry) {
     Navigator.of(context)
-        .push(MaterialPageRoute<void>(builder: (BuildContext context) {
-      return Scaffold(
-        appBar: AppBar(
-          title: Text("Favorites words"),
-        ),
-        body: Column(children: <Widget>[
-          Text('${laundry.name}'),
-        ]),
-      );
-    }));
+        .push(MaterialPageRoute<void>(builder: (_) => LaundryDetailScreen(laundry: laundry)));
   }
 }
