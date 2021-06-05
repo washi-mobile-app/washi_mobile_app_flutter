@@ -138,6 +138,25 @@ class _LaundryDetailScreen extends State<MyStatefulWidget> {
                       )),
                 ),
               ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Padding(padding: EdgeInsets.only(top: 60)),
+                MaterialButton(
+                    height: 60,
+                    minWidth: 90,
+                    color: Colors.white,
+                    textColor: Color.fromRGBO(121, 47, 218, 1),
+                    child: Text(
+                      'Solicitar servicio',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  onPressed: () {
+
+                  }
+                )
+              ],
             )
           ],
         ));
