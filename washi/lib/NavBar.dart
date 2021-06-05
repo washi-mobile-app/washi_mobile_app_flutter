@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:washi/main.dart';
 import 'package:washi/Promotions.dart';
+import 'package:washi/HomePage.dart';
 
 class NavBar extends StatelessWidget {
   @override

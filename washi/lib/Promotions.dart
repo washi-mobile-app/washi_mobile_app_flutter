@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:washi/main.dart';
 import 'package:washi/NavBar.dart';
 import 'package:washi/AdminPromotion.dart';
 
