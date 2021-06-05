@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:washi_flutter_app/pages/laundries.dart';
+import 'package:washi_flutter_app/pages/orders.dart';
 import 'package:washi_flutter_app/pages/promotions_list.dart';
 
 class NavBar extends StatelessWidget {
@@ -44,7 +45,12 @@ class NavBar extends StatelessWidget {
       ListTile(
         leading: Icon(Icons.bookmark),
         title: Text('Mis órdenes'),
-      ),
+        onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) => Orders()));
+        }),
       ListTile(
         leading: Icon(Icons.location_on),
         title: Text('Mis direcciones'),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:washi_flutter_app/entities/Laundry.dart';
+import 'package:washi_flutter_app/pages/orders.dart';
 
 class LaundryDetailScreen extends StatelessWidget {
   final Laundry laundry;
@@ -152,7 +153,12 @@ class _LaundryDetailScreen extends State<MyStatefulWidget> {
                       'Solicitar servicio',
                       style: TextStyle(fontSize: 16),
                     ),
-                    onPressed: () {})
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) => Orders()));
+                    })
               ],
             )
           ],
