@@ -40,11 +40,7 @@ class _LaundryDetailScreen extends State<MyStatefulWidget> {
                 Expanded(
                     child: Padding(
                   padding: EdgeInsets.all(16),
-                  child: Image.network(
-                    laundry.imageLogo,
-                    width: 150,
-                    height: 150,
-                  ),
+                  child: FlutterLogo(size: 56.0),
                 )),
                 Expanded(
                     child: Padding(
