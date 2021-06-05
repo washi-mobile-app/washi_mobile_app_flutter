@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:washi_flutter_app/entities/laundry.dart';
+import 'package:washi_flutter_app/pages/NavBar.dart';
 import 'package:washi_flutter_app/pages/laundryDetail.dart';
 
 class Laundries extends StatefulWidget {
@@ -121,6 +122,7 @@ class LaundriesState extends State<Laundries> {
   Widget build(BuildContext context) {
     this.context = context;
     return Scaffold(
+      drawer: NavBar(),
       appBar: AppBar(
         title: Text("Lista de Lavanderías"),
       ),
