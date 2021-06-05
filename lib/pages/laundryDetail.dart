@@ -56,6 +56,7 @@ class _LaundryDetailScreen extends State<MyStatefulWidget> {
             Row(
               children: <Widget>[
                 Expanded(
+                  flex: 45,
                     child: Padding(
                         padding: EdgeInsets.all(8),
                         child: DropdownButton<String>(
@@ -81,6 +82,7 @@ class _LaundryDetailScreen extends State<MyStatefulWidget> {
                           },
                         ))),
                 Expanded(
+                    flex: 30,
                     child: Padding(
                         padding: EdgeInsets.all(8),
                         child: DropdownButton<String>(
@@ -95,11 +97,16 @@ class _LaundryDetailScreen extends State<MyStatefulWidget> {
                               child: Text(value),
                             );
                           }).toList(),
-                          onChanged: (_) {},
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              material = newValue!;
+                            });
+                          },
                         ))),
                 Expanded(
+                    flex: 25,
                     child: Padding(
-                        padding: EdgeInsets.all(16),
+                        padding: EdgeInsets.all(8),
                         child: DropdownButton<String>(
                           value: detergent,
                           icon: const Icon(Icons.arrow_downward_sharp),
@@ -112,7 +119,11 @@ class _LaundryDetailScreen extends State<MyStatefulWidget> {
                               child: Text(value),
                             );
                           }).toList(),
-                          onChanged: (String? newValue) {},
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              detergent = newValue!;
+                            });
+                          }
                         ))),
               ],
             ),
