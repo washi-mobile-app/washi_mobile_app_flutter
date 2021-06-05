@@ -133,7 +133,7 @@ class _LaundryDetailScreen extends State<MyStatefulWidget> {
                   child: Padding(
                       padding: EdgeInsets.all(16),
                       child: Text(
-                        'Tipo de servicio:  $service \n \n Kilogramos: 1 \n \n Precio: s/.12.00',
+                        '$service:  s/. 12.00 \n \n Delivery: s/. 5.00 \n \n ',
                         textAlign: TextAlign.center,
                       )),
                 ),
