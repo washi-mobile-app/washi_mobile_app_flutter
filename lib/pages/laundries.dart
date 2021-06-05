@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:washi_flutter_app/entities/laundry.dart';
+import 'package:washi_flutter_app/entities/Laundry.dart';
 import 'package:washi_flutter_app/pages/NavBar.dart';
 import 'package:washi_flutter_app/pages/laundryDetail.dart';
 
