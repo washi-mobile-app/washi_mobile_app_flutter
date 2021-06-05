@@ -138,7 +138,7 @@ class ListItemWidget extends State<OrdersList> {
                               Padding(
                                 padding: const EdgeInsets.fromLTRB(60, 10, 0, 15),
                                 child: Text(
-                                  "Fecha", style: TextStyle(fontSize: 18),
+                                  "Fecha:", style: TextStyle(fontSize: 18),
                                 ),
                               ),
                               Padding(
@@ -264,7 +264,7 @@ class ListItemWidget extends State<OrdersList> {
                               Padding(
                                 padding: const EdgeInsets.fromLTRB(60, 10, 0, 15),
                                 child: Text(
-                                  "Total", style: TextStyle(fontSize: 18),
+                                  "Total:", style: TextStyle(fontSize: 18),
                                 ),
                               ),
                               Padding(
