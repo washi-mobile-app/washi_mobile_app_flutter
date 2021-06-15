@@ -1,4 +1,7 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 
 class WasherNotifications extends StatefulWidget {
@@ -7,7 +10,7 @@ class WasherNotifications extends StatefulWidget {
 }
 
 class _WasherNotificationsState extends State<WasherNotifications> {
-  final List<Item> _data = generateItems(8);
+  final List<Item> _data = generateItems(10);
 
   @override
   Widget build(BuildContext context) {
@@ -63,14 +66,41 @@ class Item {
   String subValue;
   bool isExpanded;
 }
+String orderState(int value){
+  switch (value) {
+    case 0:
+      return 'Su pedido esta en camino';
+      break;
+    case 1:
+      return 'Gracias por calificar su pedido';
+      break;
+    default:
+      return 'Se cancelo su pedido';
+  }
+}
+
+String laundryName(int value){
+  switch (value) {
+    case 0:
+      return 'Lavandería Ropa Blanca';
+      break;
+    case 1:
+      return 'Lavandería rápida';
+      break;
+    default:
+      return 'Aqui lavamos bien';
+  }
+}
 
 List<Item> generateItems(int numberOfItems) {
+  var random = new Random();
   return List<Item>.generate(numberOfItems, (int index) {
-    String hour = '10:00';
+    String state = orderState(random.nextInt(3));
+    String name = laundryName(random.nextInt(3));
     return Item(
       headerValue: 'Pedido N° $index',
-      subValue: 'Su pedido esta en camino',
-      expandedValue: '$hour Gracias por haber comprado en $index',
+      subValue: '$state',
+      expandedValue: 'Gracias por haber lavado en $name',
     );
   });
 }
