@@ -92,6 +92,7 @@ class LaundriesState extends State<Laundries> {
   ];
   List<Laundry> laundriesFiltered = <Laundry>[];
   final TextStyle biggerFont = TextStyle(fontSize: 18);
+  final Set<Laundry> saved = Set<Laundry>();
   late BuildContext context;
 
   @override
@@ -125,6 +126,9 @@ class LaundriesState extends State<Laundries> {
       drawer: NavBar(),
       appBar: AppBar(
         title: Text("Lista de Lavanderías"),
+        actions: <Widget>[
+          IconButton(onPressed: laundrySaved, icon: Icon(Icons.article_outlined),)
+        ],
       ),
       body: buildLaundries(),
     );
@@ -153,6 +157,7 @@ class LaundriesState extends State<Laundries> {
   }
 
   Widget buildLaundryCard(Laundry laundry) {
+    final bool alreadySaved = saved.contains(laundry);
     return Center(
       child: Card(
         child: InkWell(
@@ -168,6 +173,28 @@ class LaundriesState extends State<Laundries> {
                   title: Text(laundry.name),
                   subtitle: Text(
                       "${laundry.address}\n${laundry.district}\n${laundry.email}\n${laundry.phone}"),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget> [
+                      IconButton(
+                        icon: Icon(
+                          //if (alreadySaved == true)
+                          alreadySaved ? Icons.favorite : Icons.favorite_border,
+                          color: alreadySaved ? Colors.red : null,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            if (alreadySaved) {
+                              saved.remove(laundry);
+                            }
+                            else {
+                              saved.add(laundry);
+                            }
+                          });
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -181,4 +208,49 @@ class LaundriesState extends State<Laundries> {
     Navigator.of(context).push(MaterialPageRoute<void>(
         builder: (_) => LaundryDetailScreen(laundry: laundry)));
   }
+
+  void laundrySaved() {
+    Navigator.of(context).push(
+        MaterialPageRoute<void>(
+            builder: (BuildContext context) {
+              final Iterable<ListTile> tiles = saved.map(
+                      (Laundry laundry) {
+                    return ListTile(
+                      leading: FlutterLogo(size: 56.0),
+                      title: Text(laundry.name),
+                      subtitle: Text(
+                          "${laundry.address}\n${laundry.district}\n${laundry.email}\n${laundry.phone}"),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget> [
+                          IconButton(
+                            icon: Icon(
+                              //if (alreadySaved == true)
+                              Icons. expand_more_rounded,
+                              color: Colors.deepPurpleAccent,
+                            ),
+                            onPressed: () {
+                              goDetails(laundry);
+                            },
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+              );
+              final List<Widget> divided = ListTile.divideTiles(
+                  context: context,
+                  tiles: tiles).toList();
+              return Scaffold(
+                appBar: AppBar(
+                  title: Text("Mis lavanderías favoritas"),
+                ),
+                body: ListView(
+                  children: divided,
+                ),
+              );
+            })
+    );
+  }
+
 }
