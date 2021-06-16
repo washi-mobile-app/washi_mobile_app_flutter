@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'dart:math';
 
@@ -17,7 +15,7 @@ class _WasherNotificationsState extends State<WasherNotifications> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Notificaciones'),
-      ),
+      ),  
       body: SingleChildScrollView(
         child: Container(
           child: _buildPanel(),
