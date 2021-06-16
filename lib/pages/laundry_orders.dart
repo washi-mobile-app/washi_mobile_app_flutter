@@ -49,57 +49,42 @@ class ListItemWidget extends State<OrdersList> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        child: ListView.builder(
-          itemCount: laundryOrders.length,
-          itemBuilder: (context, index) {
-            return Container(
-                padding: EdgeInsets.only(left:0,top: 2.5,right:0, bottom: 2.5),
-                child: InkWell(
-                    child: Container(
-                      height: 100.0,
-                      child: Wrap(
-                        direction: Axis.horizontal,
-                        children: <Widget>[
-                          Container(
-                            height: 100,
-                            child: Padding(
-                              padding: EdgeInsets.fromLTRB(10, 5, 0, 0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Text(
-                                    laundryOrders[index].washerName,
-                                    style: TextStyle(fontSize: 20),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.fromLTRB(0, 10, 0, 3),
-                                    child: Container(
-                                      child: Text(laundryOrders[index].cost,textAlign: TextAlign.center, style: TextStyle(
-                                          fontSize: 18
-                                      ),),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.fromLTRB(0, 5, 0, 3),
-                                    child: Container(
-                                      child: Text(laundryOrders[index].status,style: TextStyle(
-                                        fontSize: 19,
-                                        color: Colors.blueAccent,
-                                      ),),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    onTap: () => details(laundryOrders[index])
+        child: Wrap(
+          children: laundryOrders.map((item) =>
+              Container(
+                padding: EdgeInsets.only(left:25,top: 10,right:20, bottom:10),
+                alignment: Alignment.center,
+                width: 205,
+                decoration:const BoxDecoration(
+                  border: Border(
+                    right: BorderSide(width: 1.0, color: Color.fromRGBO(121, 47, 218, 1)),
+                    bottom: BorderSide(width: 1.0, color: Color.fromRGBO(121, 47, 218, 1)),
+                  ),
                 ),
-            );
-          },
-        ));
+                child: InkWell(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(item.washerName, style: TextStyle(fontSize: 20),),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(0, 10, 0, 3),
+                          child: Container(
+                            child: Text(item.cost,textAlign: TextAlign.center, style: TextStyle(fontSize: 18),),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(0, 5, 0, 3),
+                          child: Container(
+                            child: Text(item.status,style: TextStyle(fontSize: 19, color: Colors.blueAccent,),),
+                          ),
+                        )
+                      ],
+                    ),
+                    onTap: () => details(item)
+                ),
+              )).toList().cast<Widget>(),
+        )
+    );
   }
 
   void details(LaundryOrder laundryOrder) {
