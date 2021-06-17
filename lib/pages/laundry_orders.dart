@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:washi_flutter_app/entities/Order.dart';
 import 'package:washi_flutter_app/entities/laundry_order.dart';
 
 class LaundryOrders extends StatelessWidget {
@@ -46,54 +45,58 @@ class ListItemWidget extends State<OrdersList> {
         deliveryDate: "02/05/21"),
   ];
 
+
   @override
   Widget build(BuildContext context) {
+    String dropdownValue = 'En camino';
     return Container(
         child: Wrap(
+          direction: Axis.horizontal,
           children: laundryOrders.map((item) =>
               Container(
-                padding: EdgeInsets.only(left:25,top: 10,right:20, bottom:10),
+                padding: EdgeInsets.only(left:15,top: 10,right:10, bottom:10),
                 alignment: Alignment.center,
-                width: 205,
-                decoration:const BoxDecoration(
-                  border: Border(
-                    right: BorderSide(width: 1.0, color: Color.fromRGBO(121, 47, 218, 1)),
-                    bottom: BorderSide(width: 1.0, color: Color.fromRGBO(121, 47, 218, 1)),
+                width: 200,
+                child: Container(
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.only(left:15,top: 10,right:10, bottom:10),
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Color.fromRGBO(121, 47, 218, 1))
                   ),
-                ),
-                child: InkWell(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(item.washerName, style: TextStyle(fontSize: 20),),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(0, 10, 0, 3),
-                          child: Container(
-                            child: Text(item.cost,textAlign: TextAlign.center, style: TextStyle(fontSize: 18),),
+                  child: InkWell(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(item.washerName, style: TextStyle(fontSize: 20),),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(0, 10, 0, 3),
+                            child: Container(
+                              child: Text(item.cost,textAlign: TextAlign.center, style: TextStyle(fontSize: 18),),
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(0, 5, 0, 3),
-                          child: Container(
-                            child: Text(item.status,style: TextStyle(fontSize: 19, color: Colors.blueAccent,),),
-                          ),
-                        )
-                      ],
-                    ),
-                    onTap: () => details(item)
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(0, 5, 0, 3),
+                            child: Container(
+                              child: Text(item.status,style: TextStyle(fontSize: 19, color: Colors.blueAccent,),),
+                            ),
+                          )
+                        ],
+                      ),
+                      onTap: () => details(item,dropdownValue)
+                  ),
                 ),
               )).toList().cast<Widget>(),
         )
     );
   }
 
-  void details(LaundryOrder laundryOrder) {
+  void details(LaundryOrder laundryOrder, String dropdownValue) {
     Navigator.of(context).push(
         MaterialPageRoute<void>(
             builder: (BuildContext context) {
               return Scaffold(
                   appBar: AppBar(
-                    title: Text("Detalle del pedido"),
+                    title: Text("Detalles de la orden"),
                   ),
                   body: Container(
                     child: Column(
@@ -108,13 +111,13 @@ class ListItemWidget extends State<OrdersList> {
                           child: Row(
                             children: <Widget>[
                               Padding(
-                                padding: const EdgeInsets.fromLTRB(60, 10, 0, 15),
+                                padding: const EdgeInsets.fromLTRB(40, 20, 0, 10),
                                 child: Text(
-                                  "Fecha", style: TextStyle(fontSize: 18),
+                                  "Fecha de recepción: ", style: TextStyle(fontSize: 18),
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.fromLTRB(160, 10, 0, 15),
+                                padding: const EdgeInsets.fromLTRB(80, 20, 0, 10),
                                 child: Text(
                                   laundryOrder.date, style: TextStyle(fontSize: 18),
                                 ),
@@ -126,13 +129,13 @@ class ListItemWidget extends State<OrdersList> {
                           child: Row(
                             children: <Widget>[
                               Padding(
-                                padding: const EdgeInsets.fromLTRB(60, 10, 0, 15),
+                                padding: const EdgeInsets.fromLTRB(40, 10, 0, 10),
                                 child: Text(
                                   "Fecha de entrega:", style: TextStyle(fontSize: 18),
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.fromLTRB(65, 10, 0, 15),
+                                padding: const EdgeInsets.fromLTRB(100, 10, 0, 10),
                                 child: Text(
                                   laundryOrder.deliveryDate, style: TextStyle(fontSize: 18),
                                 ),
@@ -141,22 +144,25 @@ class ListItemWidget extends State<OrdersList> {
                           ),
                         ),
                         Container(
-                          child: Row(
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(60, 10, 0, 15),
-                                child: Text(
-                                  "Estado:", style: TextStyle(fontSize: 18),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(150, 10, 0, 15),
-                                child: Text(
-                                  laundryOrder.status, style: TextStyle(fontSize: 18),
-                                ),
-                              ),
-                            ],
-                          ),
+                            padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+                            child: DropdownButton<String>(
+                              value: dropdownValue,
+                              icon: const Icon(Icons.arrow_downward_sharp),
+                              iconSize: 24,
+                              elevation: 16,
+                              items: <String>['En camino', 'Entregado',
+                              ].map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  dropdownValue = newValue!;
+                                });
+                              },
+                            )
                         ),
                         Container(
                           child: Row(
@@ -234,19 +240,33 @@ class ListItemWidget extends State<OrdersList> {
                           child: Row(
                             children: <Widget>[
                               Padding(
-                                padding: const EdgeInsets.fromLTRB(60, 10, 0, 15),
+                                padding: const EdgeInsets.fromLTRB(40, 20, 0, 40),
                                 child: Text(
                                   "Total", style: TextStyle(fontSize: 18),
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.fromLTRB(170, 10, 0, 15),
+                                padding: const EdgeInsets.fromLTRB(220, 20, 0, 40),
                                 child: Text(
                                   laundryOrder.cost, style: TextStyle(fontSize: 18),
                                 ),
                               ),
                             ],
                           ),
+                        ),
+                        MaterialButton(
+                          height: 50,
+                          minWidth: 90,
+                          color: Color.fromRGBO(121, 47, 218, 1),
+                          textColor: Colors.white,
+                          child: Text(
+                            'Actualizar',
+                            style: TextStyle(
+                                fontSize: 16
+                            ),
+                          ),
+                          onPressed: (){
+                          },
                         ),
                       ],
                     ),

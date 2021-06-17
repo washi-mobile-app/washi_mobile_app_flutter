@@ -62,7 +62,7 @@ class NavBar extends StatelessWidget {
       ),
           ListTile(
             leading: Icon(Icons.bookmark),
-            title: Text('Laundry - Ordenes'),
+            title: Text('Laundry - Órdenes'),
             onTap: () {
               Navigator.push(
                   context,
