@@ -13,9 +13,8 @@ class _PromotionsState extends State<Promotions> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: NavBar(),
       appBar: AppBar(
-        title: Text("Promotions"),
+        title: Text("Promociones"),
       ),
       body: ListView.builder(
         itemCount: 4,

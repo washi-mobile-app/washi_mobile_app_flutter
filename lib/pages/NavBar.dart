@@ -60,16 +60,6 @@ class NavBar extends StatelessWidget {
                     builder: (BuildContext context) => Orders()));
         },
       ),
-          ListTile(
-            leading: Icon(Icons.bookmark),
-            title: Text('Laundry - Órdenes'),
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (BuildContext context) => LaundryOrders()));
-            },
-          ),
       ListTile(
         leading: Icon(Icons.location_on),
         title: Text('Mis direcciones'),

@@ -13,7 +13,6 @@ class _AdminPromotionState extends State<AdminPromotion> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: NavBar(),
       appBar: AppBar(
         title: Text("New Promotion"),
       ),
