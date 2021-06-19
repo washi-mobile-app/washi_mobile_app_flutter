@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:washi_flutter_app/pages/laundries.dart';
 import 'package:washi_flutter_app/pages/orders.dart';
+import 'package:washi_flutter_app/pages/payment.dart';
 import 'package:washi_flutter_app/pages/promotions_list.dart';
+import 'package:washi_flutter_app/pages/profile_washer.dart';
 
 class NavBar extends StatelessWidget {
   @override
@@ -14,7 +16,7 @@ class NavBar extends StatelessWidget {
           currentAccountPicture: CircleAvatar(
               child: ClipOval(
                   child: Image(
-            image: AssetImage("lib/assets/logo.png"),
+            image: AssetImage("lib/assets/laundry.jpg"),
             fit: BoxFit.cover,
             width: 90,
             height: 90,
@@ -30,6 +32,17 @@ class NavBar extends StatelessWidget {
         },
       ),
       ListTile(
+        leading: Icon(Icons.person),
+        title: Text('Profile'),
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (BuildContext context) => Profile()));
+        },
+      ),
+      Divider(),
+      ListTile(
           leading: Icon(Icons.favorite),
           title: Text('Promotions'),
           onTap: () {
@@ -40,7 +53,7 @@ class NavBar extends StatelessWidget {
           }),
       ListTile(
         leading: Icon(Icons.notifications),
-        title: Text('Notificationes'),
+        title: Text('Notificaciones'),
       ),
       ListTile(
         leading: Icon(Icons.bookmark),
@@ -51,10 +64,21 @@ class NavBar extends StatelessWidget {
                 MaterialPageRoute(
                     builder: (BuildContext context) => Orders()));
         }),
+      Divider(),
       ListTile(
         leading: Icon(Icons.location_on),
         title: Text('Mis direcciones'),
       ),
+      ListTile(
+        leading: Icon(Icons.credit_card),
+        title: Text('Métodos de pago'),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (BuildContext context) => Payment()));
+        }),
+      Divider(),
       ListTile(
         leading: Icon(Icons.help_outline_rounded),
         title: Text('Ayuda'),
