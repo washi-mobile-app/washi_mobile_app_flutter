@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:washi_flutter_app/entities/Payment.dart';
 
-import 'NavBar.dart';
+import 'washer_navbar.dart';
 
 class Payment extends StatefulWidget {
   @override
@@ -27,16 +27,15 @@ class _PaymentState extends State<Payment> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: NavBar(),
+      drawer: WasherNavBar(),
       appBar: AppBar(
         title: Text("Métodos de pago"),
-    ),
+      ),
       body: Container(
         child: new ListView.builder(
             itemCount: 2,
-            itemBuilder: (BuildContext context, int index) => buildCard(context, index)
-        ),
-
+            itemBuilder: (BuildContext context, int index) =>
+                buildCard(context, index)),
       ),
     );
   }
@@ -52,14 +51,13 @@ class _PaymentState extends State<Payment> {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(top: 6.0, bottom: 4.0),
-                child: Row(
-                  children: <Widget> [
-                    Text(payment.brand, style: new TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    )),
-                  ]
-                ),
+                child: Row(children: <Widget>[
+                  Text(payment.brand,
+                      style: new TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      )),
+                ]),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 6.0, bottom: 6.0),
@@ -74,9 +72,12 @@ class _PaymentState extends State<Payment> {
                         ],
                         onPressed: (int index) {
                           setState(() {
-                            for(int buttonIndex = 0; buttonIndex < _selections.length; buttonIndex++) {
-                              if(buttonIndex == index) {
-                                _selections[buttonIndex] = !_selections[buttonIndex];
+                            for (int buttonIndex = 0;
+                                buttonIndex < _selections.length;
+                                buttonIndex++) {
+                              if (buttonIndex == index) {
+                                _selections[buttonIndex] =
+                                    !_selections[buttonIndex];
                               } else {
                                 _selections[buttonIndex] = false;
                               }
@@ -89,16 +90,12 @@ class _PaymentState extends State<Payment> {
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 6.0, bottom: 6.0),
-                child: Row(
-                  children: <Widget>[
-                    Text(payment.date),
-                  ]
-                ),
+                child: Row(children: <Widget>[
+                  Text(payment.date),
+                ]),
               ),
             ],
-
           ),
-
         ),
       ),
     );

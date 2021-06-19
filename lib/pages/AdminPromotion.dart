@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:washi_flutter_app/pages/promotions_list.dart';
-import 'package:washi_flutter_app/pages/NavBar.dart';
+import 'package:washi_flutter_app/pages/washer_navbar.dart';
 
 class AdminPromotion extends StatefulWidget {
   @override
@@ -22,7 +22,8 @@ class _AdminPromotionState extends State<AdminPromotion> {
           child: Column(
             children: <Widget>[
               TextFormField(
-                decoration: InputDecoration(labelText: "Nombre de la promoción"),
+                decoration:
+                    InputDecoration(labelText: "Nombre de la promoción"),
                 keyboardType: TextInputType.text,
               ),
               DropdownButtonFormField(
@@ -31,38 +32,36 @@ class _AdminPromotionState extends State<AdminPromotion> {
                   ),
                   value: dropdownValue,
                   icon: Icon(Icons.arrow_downward),
-                  onChanged: (String? newValue){
+                  onChanged: (String? newValue) {
                     setState(() {
                       dropdownValue = newValue!;
                     });
                   },
-                  items: <String>['Calzado', 'Frazada', 'Lavado','Secado']
+                  items: <String>['Calzado', 'Frazada', 'Lavado', 'Secado']
                       .map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
                       child: Text(value),
                     );
-                  }).toList()
-              ),
+                  }).toList()),
               DropdownButtonFormField(
                   decoration: InputDecoration(
                     labelText: 'Descuento',
                   ),
                   value: secondownValue,
                   icon: Icon(Icons.arrow_downward),
-                  onChanged: (String? newValue){
+                  onChanged: (String? newValue) {
                     setState(() {
                       secondownValue = newValue!;
                     });
                   },
-                  items: <String>['10%', '15%', '20%','25%']
+                  items: <String>['10%', '15%', '20%', '25%']
                       .map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
                       child: Text(value),
                     );
-                  }).toList()
-              ),
+                  }).toList()),
             ],
           ),
         ),
@@ -71,7 +70,8 @@ class _AdminPromotionState extends State<AdminPromotion> {
       floatingActionButton: new FloatingActionButton(
         child: Text("Add"),
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (BuildContext) => Promotions()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (BuildContext) => Promotions()));
         },
       ),
     );

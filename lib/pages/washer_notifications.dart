@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
+import 'package:washi_flutter_app/pages/washer_navbar.dart';
 
 class WasherNotifications extends StatefulWidget {
   @override
@@ -13,9 +14,10 @@ class _WasherNotificationsState extends State<WasherNotifications> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: WasherNavBar(),
       appBar: AppBar(
         title: Text('Notificaciones'),
-      ),  
+      ),
       body: SingleChildScrollView(
         child: Container(
           child: _buildPanel(),
@@ -57,14 +59,20 @@ class _WasherNotificationsState extends State<WasherNotifications> {
 
 // stores ExpansionPanel state information
 class Item {
-  Item({required this.expandedValue, required this.headerValue, required this.subValue, this.isExpanded = false,});
+  Item({
+    required this.expandedValue,
+    required this.headerValue,
+    required this.subValue,
+    this.isExpanded = false,
+  });
 
   String expandedValue;
   String headerValue;
   String subValue;
   bool isExpanded;
 }
-String orderState(int value){
+
+String orderState(int value) {
   switch (value) {
     case 0:
       return 'Su pedido esta en camino';
@@ -77,7 +85,7 @@ String orderState(int value){
   }
 }
 
-String laundryName(int value){
+String laundryName(int value) {
   switch (value) {
     case 0:
       return 'Lavandería Ropa Blanca';
@@ -102,6 +110,3 @@ List<Item> generateItems(int numberOfItems) {
     );
   });
 }
-
-
-

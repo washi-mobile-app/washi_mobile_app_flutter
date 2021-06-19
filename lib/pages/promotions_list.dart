@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:washi_flutter_app/pages/NavBar.dart';
+import 'package:washi_flutter_app/pages/washer_navbar.dart';
 
 import 'AdminPromotion.dart';
-
 
 class Promotions extends StatefulWidget {
   @override
@@ -18,7 +17,7 @@ class _PromotionsState extends State<Promotions> {
       ),
       body: ListView.builder(
         itemCount: 4,
-        itemBuilder: (BuildContext context, i){
+        itemBuilder: (BuildContext context, i) {
           return ListTile(
             title: Text("Promoción lavado"),
             subtitle: Text("Descuento 10%"),
@@ -32,7 +31,8 @@ class _PromotionsState extends State<Promotions> {
       floatingActionButton: new FloatingActionButton(
         child: Text("New"),
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (BuildContext) => AdminPromotion()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (BuildContext) => AdminPromotion()));
         },
       ),
     );

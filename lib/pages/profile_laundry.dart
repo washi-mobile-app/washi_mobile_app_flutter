@@ -3,7 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:washi_flutter_app/pages/edit_profile.dart';
 import 'package:washi_flutter_app/entities/Profile.dart';
-import 'NavBar.dart';
+import 'package:washi_flutter_app/pages/laundry_navbar.dart';
+import 'washer_navbar.dart';
 
 class ProfileLaundry extends StatefulWidget {
   @override
@@ -19,7 +20,7 @@ class _ProfileLaundryState extends State<ProfileLaundry> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: NavBar(),
+      drawer: LaundryNavBar(),
       appBar: AppBar(
         title: Text('Profile'),
       ),
@@ -27,22 +28,21 @@ class _ProfileLaundryState extends State<ProfileLaundry> {
         children: <Widget>[
           Container(
               child: Padding(
-                padding: EdgeInsets.all(18),
-                child: Column(
-                  children: <Widget>[
-                    CircleAvatar(
-                        radius: 69,
-                        child: ClipOval(
-                            child: Image(
-                              image: AssetImage("lib/assets/laundry.jpg"),
-                              fit: BoxFit.cover,
-                              width: 140,
-                              height: 140,
-                            )))
-                  ],
-                ),
-              )
-          ),
+            padding: EdgeInsets.all(18),
+            child: Column(
+              children: <Widget>[
+                CircleAvatar(
+                    radius: 69,
+                    child: ClipOval(
+                        child: Image(
+                      image: AssetImage("lib/assets/laundry.jpg"),
+                      fit: BoxFit.cover,
+                      width: 140,
+                      height: 140,
+                    )))
+              ],
+            ),
+          )),
           Card(
             child: Container(
               child: Column(
@@ -84,16 +84,13 @@ class _ProfileLaundryState extends State<ProfileLaundry> {
                     MaterialPageRoute(
                         builder: (BuildContext context) => EditProfile()));
               },
-              child: Text("Update Info", style: TextStyle(
-                  fontSize: 20,
-                  letterSpacing: 2,
-                  color: Colors.white
-              )),
+              child: Text("Update Info",
+                  style: TextStyle(
+                      fontSize: 20, letterSpacing: 2, color: Colors.white)),
               style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  )
-              ),
+                borderRadius: BorderRadius.circular(20),
+              )),
             ),
           )
         ],
@@ -101,4 +98,3 @@ class _ProfileLaundryState extends State<ProfileLaundry> {
     );
   }
 }
-

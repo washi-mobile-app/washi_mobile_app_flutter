@@ -5,9 +5,12 @@ import 'package:washi_flutter_app/pages/orders.dart';
 import 'package:washi_flutter_app/pages/payment.dart';
 import 'package:washi_flutter_app/pages/promotions_list.dart';
 import 'package:washi_flutter_app/pages/profile_washer.dart';
+import 'package:washi_flutter_app/pages/sign_in.dart';
 import 'package:washi_flutter_app/pages/washer_notifications.dart';
 
-class NavBar extends StatelessWidget {
+import '../main.dart';
+
+class WasherNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -37,20 +40,13 @@ class NavBar extends StatelessWidget {
         leading: Icon(Icons.person),
         title: Text('Profile'),
         onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (BuildContext context) => Profile()));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (BuildContext context) => ProfileWasher()));
         },
       ),
       Divider(),
-      ListTile(
-          leading: Icon(Icons.favorite),
-          title: Text('Promotions'),
-          onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (BuildContext context) => Promotions()));
-          }),
       ListTile(
         leading: Icon(Icons.notifications),
         title: Text('Notificationes'),
@@ -84,7 +80,14 @@ class NavBar extends StatelessWidget {
       ListTile(
         leading: Icon(Icons.help_outline_rounded),
         title: Text('Ayuda'),
-      )
+      ),
+      ListTile(
+          leading: Icon(Icons.subdirectory_arrow_left),
+          title: Text('Cerrar sesión'),
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (BuildContext context) => Index()));
+          })
     ]));
   }
 }

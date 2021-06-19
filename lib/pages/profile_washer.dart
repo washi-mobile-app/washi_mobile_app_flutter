@@ -3,24 +3,23 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:washi_flutter_app/pages/edit_profile.dart';
 import 'package:washi_flutter_app/entities/Profile.dart';
-import 'NavBar.dart';
+import 'washer_navbar.dart';
 
-class Profile extends StatefulWidget {
+class ProfileWasher extends StatefulWidget {
   @override
-  _ProfileState createState() => _ProfileState();
+  _ProfileWasherState createState() => _ProfileWasherState();
 }
 
-class _ProfileState extends State<Profile> {
+class _ProfileWasherState extends State<ProfileWasher> {
   final Profiles profile = Profiles(
-    name: "John Doe",
-    email: "johndoe@gmail.com",
-    number: "987 654 321",
-    address: "Av. Brasil 123"
-  );
+      name: "John Doe",
+      email: "johndoe@gmail.com",
+      number: "987 654 321",
+      address: "Av. Brasil 123");
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: NavBar(),
+      drawer: WasherNavBar(),
       appBar: AppBar(
         title: Text('Profile'),
       ),
@@ -28,22 +27,21 @@ class _ProfileState extends State<Profile> {
         children: <Widget>[
           Container(
               child: Padding(
-                padding: EdgeInsets.all(18),
-                child: Column(
-                  children: <Widget>[
-                    CircleAvatar(
-                        radius: 69,
-                        child: ClipOval(
-                            child: Image(
-                              image: AssetImage("lib/assets/laundry.jpg"),
-                              fit: BoxFit.cover,
-                              width: 140,
-                              height: 140,
-                            )))
-                  ],
-                ),
-              )
-          ),
+            padding: EdgeInsets.all(18),
+            child: Column(
+              children: <Widget>[
+                CircleAvatar(
+                    radius: 69,
+                    child: ClipOval(
+                        child: Image(
+                      image: AssetImage("lib/assets/laundry.jpg"),
+                      fit: BoxFit.cover,
+                      width: 140,
+                      height: 140,
+                    )))
+              ],
+            ),
+          )),
           Card(
             child: Container(
               child: Column(
@@ -79,22 +77,19 @@ class _ProfileState extends State<Profile> {
             padding: EdgeInsets.all(20),
             constraints: BoxConstraints.tightFor(width: 20, height: 80),
             child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) => EditProfile()));
-                },
-                child: Text("Update Info", style: TextStyle(
-                  fontSize: 20,
-                  letterSpacing: 2,
-                  color: Colors.white
-                )),
-                style: ElevatedButton.styleFrom(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => EditProfile()));
+              },
+              child: Text("Update Info",
+                  style: TextStyle(
+                      fontSize: 20, letterSpacing: 2, color: Colors.white)),
+              style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  )
-                ),
+                borderRadius: BorderRadius.circular(20),
+              )),
             ),
           )
         ],
@@ -102,4 +97,3 @@ class _ProfileState extends State<Profile> {
     );
   }
 }
-
