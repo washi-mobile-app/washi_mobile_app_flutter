@@ -1,4 +1,8 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:washi_flutter_app/entities/laundry_order.dart';
 import 'package:washi_flutter_app/pages/laundry_navbar.dart';
@@ -46,60 +50,94 @@ final List<LaundryOrder> laundryOrders = <LaundryOrder>[
 ];
 
 class ListItemWidget extends State<OrdersList> {
+  String url = "http://washi-api.azurewebsites.net/api/orders/";
+  List<LaundryOrder> laundryOrders = [];
+  List data = [];
+
+  Future<String> makeRequest()async{
+    var response = await http.get(
+        Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3IiwiZW1haWwiOiJzdHJpbmciLCJyb2xlIjoiV2FzaGVyIiwibmJmIjoxNjI0MDQ3NTcxLCJleHAiOjE2MjQ2NTIzNzEsImlhdCI6MTYyNDA0NzU3MX0.Bc71N-TzMeuDvLmOKWieTLikqTpMRT23bijWz7cQtkA'
+      },
+    );
+
+    //This permits us to reload data
+    setState(() {
+      var extractData = json.decode(response.body);
+      data = extractData;
+    });
+
+    return response.body.toString();
+  }
+
+  @override
+  void initState(){
+    this.makeRequest();
+  }
+
   @override
   Widget build(BuildContext context) {
-    String dropdownValue = 'En camino';
-    return Container(
-        child: Wrap(
-          direction: Axis.horizontal,
-          children: laundryOrders.map((item) =>
-              Container(
-                padding: EdgeInsets.only(left:15,top: 10,right:10, bottom:10),
-                alignment: Alignment.center,
-                width: 200,
-                child: Container(
+    return ListView.builder(
+        itemCount: data == null ? 0 : data.length,
+        itemBuilder: (BuildContext context,i) {
+          return Container(
+                  padding: EdgeInsets.only(
+                      left: 15, top: 10, right: 10, bottom: 10),
                   alignment: Alignment.center,
-                  padding: EdgeInsets.only(left:15,top: 10,right:10, bottom:10),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Color.fromRGBO(121, 47, 218, 1))
-                  ),
-                  child: InkWell(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(item.washerName, style: TextStyle(fontSize: 20),),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(0, 10, 0, 3),
-                          child: Container(
-                            child: Text(item.cost,textAlign: TextAlign.center, style: TextStyle(fontSize: 18),),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(0, 5, 0, 3),
-                          child: Container(
-                            child: Text(item.status,style: TextStyle(fontSize: 19, color: Colors.blueAccent,),),
-                          ),
-                        )
-                      ],
+                  width: 200,
+                  child: Container(
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.only(
+                        left: 15, top: 10, right: 10, bottom: 10),
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                            color: Color.fromRGBO(121, 47, 218, 1))
                     ),
-                    onTap: (){
-                      Navigator.push(context,
-                          MaterialPageRoute(
-                              builder: (context) => LaundryOrderDetails(item)
+                    child: InkWell(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text((data[i]['userId']).toString(), style: TextStyle(
+                              fontSize: 20),),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(0, 10, 0, 3),
+                            child: Container(
+                              child: Text(
+                                (data[i]['orderAmount']).toString(),
+                                textAlign: TextAlign.center,
+                                style: TextStyle(fontSize: 18),),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(0, 5, 0, 3),
+                            child: Container(
+                              child: Text(data[i]['orderStatusId'].toString(), style: TextStyle(
+                                fontSize: 19, color: Colors.blueAccent,),),
+                            ),
                           )
-                      );
-                    },
+                        ],
+                      ),
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(
+                                builder: (context) => LaundryOrderDetails(data[i]['id'])
+                            )
+                        );
+                      },
+                    ),
                   ),
-                ),
-              )).toList().cast<Widget>(),
-        )
+          );
+        }
     );
   }
 }
 
 class LaundryOrderDetails extends StatefulWidget {
-  final LaundryOrder laundryOrder;
-  const LaundryOrderDetails(this.laundryOrder);
+  final int order_id;
+  const LaundryOrderDetails(this.order_id);
 
   @override
   _LaundryOrderDetailsState createState() => _LaundryOrderDetailsState();
@@ -120,7 +158,7 @@ class _LaundryOrderDetailsState extends State<LaundryOrderDetails> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 20, 0, 15),
                 child: Text(
-                  widget.laundryOrder.washerName, style: TextStyle(fontSize: 25),
+                  widget.order_id.toString(), style: TextStyle(fontSize: 25),
                 ),
               ),
               Container(
@@ -135,7 +173,7 @@ class _LaundryOrderDetailsState extends State<LaundryOrderDetails> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(80, 20, 0, 10),
                       child: Text(
-                        widget.laundryOrder.date, style: TextStyle(fontSize: 18),
+                        widget.order_id.toString(), style: TextStyle(fontSize: 18),
                       ),
                     ),
                   ],
@@ -153,7 +191,7 @@ class _LaundryOrderDetailsState extends State<LaundryOrderDetails> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(100, 10, 0, 10),
                       child: Text(
-                        widget.laundryOrder.deliveryDate, style: TextStyle(fontSize: 18),
+                        widget.order_id.toString(), style: TextStyle(fontSize: 18),
                       ),
                     ),
                   ],
@@ -269,7 +307,7 @@ class _LaundryOrderDetailsState extends State<LaundryOrderDetails> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(220, 20, 0, 40),
                       child: Text(
-                        widget.laundryOrder.cost, style: TextStyle(fontSize: 18),
+                        widget.order_id.toString(), style: TextStyle(fontSize: 18),
                       ),
                     ),
                   ],
