@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:washi_flutter_app/pages/profile.dart';
+import 'package:washi_flutter_app/pages/profile_washer.dart';
 import 'package:washi_flutter_app/entities/Profile.dart';
-import 'package:washi_flutter_app/pages/profile.dart';
+import 'package:washi_flutter_app/pages/profile_washer.dart';
 
 class EditProfile extends StatefulWidget {
   final Profiles profiles = Profiles(

@@ -3,7 +3,7 @@ import 'package:washi_flutter_app/pages/laundries.dart';
 import 'package:washi_flutter_app/pages/orders.dart';
 import 'package:washi_flutter_app/pages/payment.dart';
 import 'package:washi_flutter_app/pages/promotions_list.dart';
-import 'package:washi_flutter_app/pages/profile.dart';
+import 'package:washi_flutter_app/pages/profile_washer.dart';
 
 class NavBar extends StatelessWidget {
   @override
