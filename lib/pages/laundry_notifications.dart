@@ -1,20 +1,21 @@
-import 'package:flutter/material.dart';
 import 'dart:math';
 
-import 'package:washi_flutter_app/pages/washer_navbar.dart';
+import 'package:flutter/material.dart';
 
-class WasherNotifications extends StatefulWidget {
+import 'laundry_navbar.dart';
+
+class LaundryNotifications extends StatefulWidget {
   @override
-  _WasherNotificationsState createState() => _WasherNotificationsState();
+  _LaundryNotificationsState createState() => _LaundryNotificationsState();
 }
 
-class _WasherNotificationsState extends State<WasherNotifications> {
+class _LaundryNotificationsState extends State<LaundryNotifications> {
   final List<Item> _data = generateItems(10);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: WasherNavBar(),
+      drawer: LaundryNavBar(),
       appBar: AppBar(
         title: Text('Notificaciones'),
       ),
@@ -75,38 +76,35 @@ class Item {
 String orderState(int value) {
   switch (value) {
     case 0:
-      return 'Su pedido esta en camino';
-      break;
-    case 1:
-      return 'Gracias por calificar su pedido';
+      return 'Se ha realizado una nueva orden';
       break;
     default:
-      return 'Se cancelo su pedido';
+      return 'Se entregó el pedido';
   }
 }
 
 String laundryName(int value) {
   switch (value) {
     case 0:
-      return 'Lavandería Ropa Blanca';
+      return 'Pepito';
       break;
     case 1:
-      return 'Lavandería rápida';
+      return 'Carlos';
       break;
     default:
-      return 'Aqui lavamos bien';
+      return 'Juan';
   }
 }
 
 List<Item> generateItems(int numberOfItems) {
   var random = new Random();
   return List<Item>.generate(numberOfItems, (int index) {
-    String state = orderState(random.nextInt(3));
+    String state = orderState(random.nextInt(2));
     String name = laundryName(random.nextInt(3));
     return Item(
       headerValue: 'Pedido N° $index',
       subValue: '$state',
-      expandedValue: 'Gracias por haber lavado en $name',
+      expandedValue: '$state del usuario $name',
     );
   });
 }
