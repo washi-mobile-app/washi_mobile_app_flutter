@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:washi_flutter_app/entities/laundry_order.dart';
 import 'package:washi_flutter_app/pages/laundry_navbar.dart';
+import 'package:washi_flutter_app/pages/laundry_orders_1.dart';
 
 class LaundryOrders extends StatelessWidget {
   @override
@@ -287,9 +288,9 @@ class _LaundryOrderDetailsState extends State<LaundryOrderDetails> {
                   ),
                 ),
                 onPressed: (){
-                  Navigator.pop(context,
+                  Navigator.push(context,
                       MaterialPageRoute(
-                          builder: (context) => LaundryOrders()
+                          builder: (context) => LaundryOrders1()
                       )
                   );
                 },
