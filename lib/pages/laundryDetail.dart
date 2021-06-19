@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:washi_flutter_app/entities/Laundry.dart';
+import 'package:washi_flutter_app/pages/offers.dart';
 import 'package:washi_flutter_app/pages/orders.dart';
 
 class LaundryDetailScreen extends StatelessWidget {
@@ -165,6 +166,21 @@ class _LaundryDetailScreen extends State<MyStatefulWidget> {
                           context,
                           MaterialPageRoute(
                               builder: (BuildContext context) => Orders()));
+                    }),
+                MaterialButton(
+                    height: 60,
+                    minWidth: 90,
+                    color: Colors.white,
+                    textColor: Color.fromRGBO(121, 47, 218, 1),
+                    child: Text(
+                      'Ver ofertas',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) => Offers()));
                     })
               ],
             )

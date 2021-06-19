@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:washi_flutter_app/pages/laundries.dart';
+import 'package:washi_flutter_app/pages/laundry_orders.dart';
 
 class LogInLaundry extends StatefulWidget {
   @override
@@ -66,7 +67,7 @@ class _LogInLaundryState extends State<LogInLaundry> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Laundries()));
+                                    builder: (context) => LaundryOrders()));
                           },
                         ),
                       ],

@@ -48,6 +48,9 @@ flutter:
     - lib/assets/laundry.jpg
     - lib/assets/picture.jpeg
     - lib/assets/logo.png
+    - lib/assets/oferta1.png
+    - lib/assets/oferta2.png
+    - lib/assets/oferta3.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
