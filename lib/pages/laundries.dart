@@ -169,7 +169,7 @@ class LaundriesState extends State<Laundries> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 ListTile(
-                  leading: FlutterLogo(size: 56.0),
+                  leading:FlutterLogo(size: 56.0),
                   title: Text(laundry.name),
                   subtitle: Text(
                       "${laundry.address}\n${laundry.district}\n${laundry.email}\n${laundry.phone}"),
@@ -178,9 +178,9 @@ class LaundriesState extends State<Laundries> {
                     children: <Widget> [
                       IconButton(
                         icon: Icon(
-                          //if (alreadySaved == true)
-                          alreadySaved ? Icons.favorite : Icons.favorite_border,
-                          color: alreadySaved ? Colors.red : null,
+                            //if (alreadySaved == true)
+                            alreadySaved ? Icons.favorite : Icons.favorite_border,
+                            color: alreadySaved ? Colors.red : null,
                         ),
                         onPressed: () {
                           setState(() {
