@@ -29,7 +29,6 @@ class _LogInLaundryState extends State<LogInLaundry> {
     setState(() {
       var extractData = json.decode(response.body);
       UserHelper.token = extractData["token"];
-      print(int.parse(extractData["id"]));
       UserHelper.userid = extractData["id"];
     });
 
