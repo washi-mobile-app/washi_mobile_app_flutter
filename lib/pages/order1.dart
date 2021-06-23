@@ -1,12 +1,9 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:washi_flutter_app/entities/Order.dart';
 import 'package:washi_flutter_app/pages/washer_navbar.dart';
 
-class Orders1 extends StatelessWidget {
+class Orders extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,168 +11,38 @@ class Orders1 extends StatelessWidget {
         appBar: AppBar(
           title: Text("Pedidos"),
         ),
-        body: Center(child: OrdersList1()));
+        body: Center(child: OrdersList()));
   }
 }
 
-class OrdersList1 extends StatefulWidget {
+class OrdersList extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return ListItemWidget();
   }
 }
 
-class ListItemWidget extends State<OrdersList1> {
-  String url = "http://washi-api.azurewebsites.net/api";
-  List orders = [];
-  List orderStatuses = [];
-
-  List userData = [];
-  List clientData = [];
-  List orderDetails = [];
-  List laundryServiceMaterials = [];
-  List laundries = [];
-
-  Future<String> makeRequest() async {
-    var response = await http.get(
-      Uri.parse(url + "/orders/users/1/"),
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3IiwiZW1haWwiOiJzdHJpbmciLCJyb2xlIjoiV2FzaGVyIiwibmJmIjoxNjI0MDQ3NTcxLCJleHAiOjE2MjQ2NTIzNzEsImlhdCI6MTYyNDA0NzU3MX0.Bc71N-TzMeuDvLmOKWieTLikqTpMRT23bijWz7cQtkA'
-      },
-    );
-
-    //This permits us to reload data
-    setState(() {
-      var extractData = json.decode(response.body);
-      orders = extractData;
-    });
-
-    return response.body.toString();
-  }
-
-  Future<String> statusRequest() async {
-    var response = await http.get(
-      Uri.parse(url + "/orderstatuses/"),
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3IiwiZW1haWwiOiJzdHJpbmciLCJyb2xlIjoiV2FzaGVyIiwibmJmIjoxNjI0MDQ3NTcxLCJleHAiOjE2MjQ2NTIzNzEsImlhdCI6MTYyNDA0NzU3MX0.Bc71N-TzMeuDvLmOKWieTLikqTpMRT23bijWz7cQtkA'
-      },
-    );
-
-    //This permits us to reload data
-    setState(() {
-      var extractData = json.decode(response.body);
-      orderStatuses = extractData;
-    });
-
-    return "success";
-  }
-
-  Future<String> clientesData() async {
-    var response = await http.get(
-      Uri.parse(url + "/userprofiles/1/"),
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': 'Bearer ' + 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3IiwiZW1haWwiOiJzdHJpbmciLCJyb2xlIjoiV2FzaGVyIiwibmJmIjoxNjI0MDQ3NTcxLCJleHAiOjE2MjQ2NTIzNzEsImlhdCI6MTYyNDA0NzU3MX0.Bc71N-TzMeuDvLmOKWieTLikqTpMRT23bijWz7cQtkA'
-      },
-    );
-
-    //This permits us to reload data
-    setState(() {
-      var extractData = json.decode(response.body);
-      clientData = extractData;
-    });
-
-    return response.body.toString();
-  }
-
-  Future<String> detailsData() async {
-    var response = await http.get(
-      Uri.parse(url + "/orderdetails/"),
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': 'Bearer ' + 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3IiwiZW1haWwiOiJzdHJpbmciLCJyb2xlIjoiV2FzaGVyIiwibmJmIjoxNjI0MDQ3NTcxLCJleHAiOjE2MjQ2NTIzNzEsImlhdCI6MTYyNDA0NzU3MX0.Bc71N-TzMeuDvLmOKWieTLikqTpMRT23bijWz7cQtkA'
-      },
-    );
-
-    //This permits us to reload data
-    setState(() {
-      var extractData = json.decode(response.body);
-      orderDetails = extractData;
-    });
-
-    return "success";
-  }
-
-  Future<String> laundryServiceMaterialRequest() async {
-    var response = await http.get(
-      Uri.parse(url + "/laundryservicematerials/"),
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': 'Bearer ' + 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3IiwiZW1haWwiOiJzdHJpbmciLCJyb2xlIjoiV2FzaGVyIiwibmJmIjoxNjI0MDQ3NTcxLCJleHAiOjE2MjQ2NTIzNzEsImlhdCI6MTYyNDA0NzU3MX0.Bc71N-TzMeuDvLmOKWieTLikqTpMRT23bijWz7cQtkA'
-      },
-    );
-
-    //This permits us to reload data
-    setState(() {
-      var extractData = json.decode(response.body);
-      laundryServiceMaterials = extractData;
-    });
-
-    return response.body.toString();
-  }
-
-  Future<String> laundriesData() async {
-    var response = await http.get(
-      Uri.parse(url + "/userprofiles/laundries/"),
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': 'Bearer ' + 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3IiwiZW1haWwiOiJzdHJpbmciLCJyb2xlIjoiV2FzaGVyIiwibmJmIjoxNjI0MDQ3NTcxLCJleHAiOjE2MjQ2NTIzNzEsImlhdCI6MTYyNDA0NzU3MX0.Bc71N-TzMeuDvLmOKWieTLikqTpMRT23bijWz7cQtkA'
-      },
-    );
-
-    //This permits us to reload data
-    setState(() {
-      var extractData = json.decode(response.body);
-      laundries = extractData;
-    });
-
-    Future<String> usersData()async{
-      var response = await http.get(
-        Uri.parse(url + "/users/"),
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3IiwiZW1haWwiOiJzdHJpbmciLCJyb2xlIjoiV2FzaGVyIiwibmJmIjoxNjI0MDQ3NTcxLCJleHAiOjE2MjQ2NTIzNzEsImlhdCI6MTYyNDA0NzU3MX0.Bc71N-TzMeuDvLmOKWieTLikqTpMRT23bijWz7cQtkA'
-        },
-      );
-
-      //This permits us to reload data
-      setState(() {
-        var extractData = json.decode(response.body);
-        userData = extractData;
-      });
-
-      return "success";
-    }
-
-    return response.body.toString();
-  }
-
-  @override
-  initState() {
-    this.makeRequest();
-    this.statusRequest();
-    this.detailsData();
-    super.initState();
-  }
+class ListItemWidget extends State<OrdersList> {
+  final List<Order> orders = <Order>[
+    Order(
+        laundryName: "Lavandería Don Pepe",
+        cost: "S/. 44.60",
+        status: "En camino",
+        date: "05/05/21",
+        deliveryDate: "08/05/21"),
+    Order(
+        laundryName: "Lavandería Don Pepe",
+        cost: "S/. 30.50",
+        status: "En camino",
+        date: "06/06/21",
+        deliveryDate: "08/06/21"),
+    Order(
+        laundryName: "Lavandería Don Pepe",
+        cost: "S/. 35.00",
+        status: "Entregado",
+        date: "28/04/21",
+        deliveryDate: "02/05/21"),
+  ];
 
   final TextStyle biggerFont = TextStyle(fontSize: 20);
 
@@ -183,61 +50,12 @@ class ListItemWidget extends State<OrdersList1> {
   Widget build(BuildContext context) {
     return Container(
         child: ListView.builder(
-          itemCount: orders == null ? 0 : orders.length,
-          itemBuilder: (BuildContext context, int i) {
-            int orderStatusId = 0;
-            int orderDetailId = 0;
-
-            for (var j = 0; j < orderStatuses.length; j++) {
-              if (orderStatuses[j]['id'] == orders[i]['orderStatusId']) {
-                orderStatusId = j;
-              }
-            }
-
-            for (var k = 0; k < orderDetails.length; k++) {
-              if (orderDetails[k]['orderId'] == orders[i]['id']) {
-                orderDetailId = k;
-              }
-            }
-
-            /*int userId = 0;
-            int laundryId = 0;
-            int orderId = 0;
-            int orderDetailId = 0;
-            int laundryServiceMaterialId = 0;
-
-            for (var j = 0; j < userData.length; j++) {
-              if (userData[j]['id'] == clientData[i]['userId']) {
-                userId = j;
-              }
-            }
-
-            for (var j = 0; j < clientData.length; j++) {
-              if (clientData[j]['userId'] == orders[i]['userId']) {
-                orderId = j;
-              }
-            }
-
-            for (var j = 0; j < orders.length; j++) {
-              if (orders[j]['userId'] == orderDetails[i]['orderId']) {
-                orderDetailId = j;
-              }
-            }
-
-            for (var j = 0; j < laundryServiceMaterials.length; j++) {
-              if (laundryServiceMaterials[j]['id'] == orderDetails[i]['laundryServiceMaterialId']) {
-                laundryServiceMaterialId = j;
-              }
-            }
-            for (var j = 0; j < laundries.length; j++) {
-              if (laundries[j]['userId'] == laundryServiceMaterials[i]['laundryId']) {
-                laundryId = j;
-              }
-            }*/
+          itemCount: orders.length,
+          itemBuilder: (context, index) {
             return new Container(
-                child: Card(
-                  elevation: 5,
-                  child: InkWell(
+              child: Card(
+                elevation: 5,
+                child: InkWell(
                     child: Container(
                       height: 100.0,
                       child: Row(
@@ -262,14 +80,14 @@ class ListItemWidget extends State<OrdersList1> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   Text(
-                                    orders[i]['id'].toString(),
+                                    orders[index].laundryName,
                                     style: biggerFont,
                                   ),
                                   Padding(
                                     padding: EdgeInsets.fromLTRB(0, 10, 0, 3),
                                     child: Container(
                                       child: Text(
-                                        orders[i]["orderAmount"].toString(),
+                                        orders[index].cost,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(fontSize: 18),
                                       ),
@@ -279,7 +97,7 @@ class ListItemWidget extends State<OrdersList1> {
                                     padding: EdgeInsets.fromLTRB(0, 5, 0, 3),
                                     child: Container(
                                       child: Text(
-                                        orderStatuses[orderStatusId]["name"].toString(),
+                                        orders[index].status,
                                         style: TextStyle(
                                           fontSize: 19,
                                           color: Colors.blueAccent,
@@ -294,14 +112,13 @@ class ListItemWidget extends State<OrdersList1> {
                         ],
                       ),
                     ),
-                    // onTap: () => details(orders[index])),
-                  ),
-                ));
-      },
-    ));
+                    onTap: () => details(orders[index])),
+              ),
+            );
+          },
+        ));
   }
 
-  /*
   void details(Order order) {
     Navigator.of(context)
         .push(MaterialPageRoute<void>(builder: (BuildContext context) {
@@ -483,5 +300,5 @@ class ListItemWidget extends State<OrdersList1> {
             ),
           ));
     }));
-  }*/
+  }
 }

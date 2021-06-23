@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:washi_flutter_app/pages/laundries.dart';
 import 'package:washi_flutter_app/pages/laundry_orders.dart';
+import 'package:washi_flutter_app/pages/order1.dart';
 import 'package:washi_flutter_app/pages/orders.dart';
 import 'package:washi_flutter_app/pages/payment.dart';
 import 'package:washi_flutter_app/pages/promotions_list.dart';
