@@ -36,7 +36,7 @@ class ListItemWidget extends State<OrdersList> {
 
   Future<String> makeRequest() async {
     var response = await http.get(
-      Uri.parse(url + "/orders/users/" + UserHelper.userid),
+      Uri.parse(url + "/orders/laundries/" + UserHelper.userid),
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
