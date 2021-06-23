@@ -1,0 +1,34 @@
+{
+  "Orders": [
+    {
+      "id": 1,
+      "date": "2021-06-18",
+      "deliveryDate": "2021-06-23",
+      "orderStatusId": 0,
+      "deliveryAddress": "Av. Perú #1234",
+      "orderAmount": 34.00,
+      "user_id": 1,
+      "laundry_id": 1
+    },
+    {
+      "id": 2,
+      "date": "2021-06-18",
+      "deliveryDate": "2021-06-23",
+      "orderStatusId": 0,
+      "deliveryAddress": "Ca. Manco Capac 121, dpto. 21",
+      "orderAmount": 34.00,
+      "user_id": 1,
+      "laundry_id": 1
+    },
+    {
+      "id": 3,
+      "date": "2021-06-18",
+      "deliveryDate": "2021-06-23",
+      "orderStatusId": 0,
+      "deliveryAddress": "Av. 28 de Julio 230, dpto. 802",
+      "orderAmount": 34.00,
+      "user_id": 1,
+      "laundry_id": 1
+    }
+  ]
+}
