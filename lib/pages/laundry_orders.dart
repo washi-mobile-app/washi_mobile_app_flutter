@@ -1,10 +1,11 @@
 import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:washi_flutter_app/entities/laundry_order.dart';
+import 'package:http/http.dart' as http;
 import 'package:washi_flutter_app/pages/laundry_navbar.dart';
 import 'package:washi_flutter_app/pages/laundry_orders_1.dart';
+import 'package:washi_flutter_app/util/user_helper.dart';
 
 class LaundryOrders extends StatelessWidget {
   @override
@@ -35,12 +36,11 @@ class ListItemWidget extends State<OrdersList> {
 
   Future<String> makeRequest() async {
     var response = await http.get(
-      Uri.parse(url + "/orders/"),
+      Uri.parse(url + "/orders/users/" + UserHelper.userid),
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization':
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3IiwiZW1haWwiOiJzdHJpbmciLCJyb2xlIjoiV2FzaGVyIiwibmJmIjoxNjI0MDQ3NTcxLCJleHAiOjE2MjQ2NTIzNzEsImlhdCI6MTYyNDA0NzU3MX0.Bc71N-TzMeuDvLmOKWieTLikqTpMRT23bijWz7cQtkA'
+        'Authorization': 'Bearer ' + UserHelper.token
       },
     );
 
@@ -59,8 +59,7 @@ class ListItemWidget extends State<OrdersList> {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization':
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3IiwiZW1haWwiOiJzdHJpbmciLCJyb2xlIjoiV2FzaGVyIiwibmJmIjoxNjI0MDQ3NTcxLCJleHAiOjE2MjQ2NTIzNzEsImlhdCI6MTYyNDA0NzU3MX0.Bc71N-TzMeuDvLmOKWieTLikqTpMRT23bijWz7cQtkA'
+        'Authorization': 'Bearer ' + UserHelper.token
       },
     );
 
@@ -75,6 +74,7 @@ class ListItemWidget extends State<OrdersList> {
 
   @override
   void initState() {
+    print(url + "/orders/users/" + UserHelper.userid);
     this.makeRequest();
     this.clientData();
   }
@@ -188,8 +188,7 @@ class _LaundryOrderDetailsState extends State<LaundryOrderDetails> {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization':
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3IiwiZW1haWwiOiJzdHJpbmciLCJyb2xlIjoiV2FzaGVyIiwibmJmIjoxNjI0MDQ3NTcxLCJleHAiOjE2MjQ2NTIzNzEsImlhdCI6MTYyNDA0NzU3MX0.Bc71N-TzMeuDvLmOKWieTLikqTpMRT23bijWz7cQtkA'
+        'Authorization': 'Bearer ' + UserHelper.token
       },
     );
 
@@ -208,8 +207,7 @@ class _LaundryOrderDetailsState extends State<LaundryOrderDetails> {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization':
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3IiwiZW1haWwiOiJzdHJpbmciLCJyb2xlIjoiV2FzaGVyIiwibmJmIjoxNjI0MDQ3NTcxLCJleHAiOjE2MjQ2NTIzNzEsImlhdCI6MTYyNDA0NzU3MX0.Bc71N-TzMeuDvLmOKWieTLikqTpMRT23bijWz7cQtkA'
+        'Authorization': 'Bearer ' + UserHelper.token
       },
     );
 
@@ -228,8 +226,7 @@ class _LaundryOrderDetailsState extends State<LaundryOrderDetails> {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization':
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3IiwiZW1haWwiOiJzdHJpbmciLCJyb2xlIjoiV2FzaGVyIiwibmJmIjoxNjI0MDQ3NTcxLCJleHAiOjE2MjQ2NTIzNzEsImlhdCI6MTYyNDA0NzU3MX0.Bc71N-TzMeuDvLmOKWieTLikqTpMRT23bijWz7cQtkA'
+        'Authorization': 'Bearer ' + UserHelper.token
       },
     );
 
@@ -248,8 +245,7 @@ class _LaundryOrderDetailsState extends State<LaundryOrderDetails> {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization':
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3IiwiZW1haWwiOiJzdHJpbmciLCJyb2xlIjoiV2FzaGVyIiwibmJmIjoxNjI0MDQ3NTcxLCJleHAiOjE2MjQ2NTIzNzEsImlhdCI6MTYyNDA0NzU3MX0.Bc71N-TzMeuDvLmOKWieTLikqTpMRT23bijWz7cQtkA'
+        'Authorization': 'Bearer ' + UserHelper.token
       },
     );
 
@@ -268,8 +264,7 @@ class _LaundryOrderDetailsState extends State<LaundryOrderDetails> {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization':
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3IiwiZW1haWwiOiJzdHJpbmciLCJyb2xlIjoiV2FzaGVyIiwibmJmIjoxNjI0MDQ3NTcxLCJleHAiOjE2MjQ2NTIzNzEsImlhdCI6MTYyNDA0NzU3MX0.Bc71N-TzMeuDvLmOKWieTLikqTpMRT23bijWz7cQtkA'
+        'Authorization': 'Bearer ' + UserHelper.token
       },
     );
 
@@ -304,8 +299,7 @@ class _LaundryOrderDetailsState extends State<LaundryOrderDetails> {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization':
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3IiwiZW1haWwiOiJzdHJpbmciLCJyb2xlIjoiV2FzaGVyIiwibmJmIjoxNjI0MDQ3NTcxLCJleHAiOjE2MjQ2NTIzNzEsImlhdCI6MTYyNDA0NzU3MX0.Bc71N-TzMeuDvLmOKWieTLikqTpMRT23bijWz7cQtkA'
+        'Authorization': 'Bearer ' + UserHelper.token
       },
       body: jsonEncode({
         "userId": userId,
