@@ -33,8 +33,8 @@ class MyStatefulWidget extends StatefulWidget {
 class _LaundryDetailScreen extends State<MyStatefulWidget> {
   final Laundry laundry;
   String url = "http://washi-api.azurewebsites.net/api";
-  List<Service> service = [];
-  List<Materials> material = [];
+  static List<Service> service = [];
+  static List<Materials> material = [];
   List detergent = [];
 
   Future<String> serviceData() async {
@@ -109,7 +109,7 @@ class _LaundryDetailScreen extends State<MyStatefulWidget> {
             Row(
               children: <Widget>[
                 Expanded(
-                  flex: 45,
+                    flex: 45,
                     child: Padding(
                         padding: EdgeInsets.all(8),
                         child: DropdownButton<Service>(
@@ -117,7 +117,8 @@ class _LaundryDetailScreen extends State<MyStatefulWidget> {
                           icon: const Icon(Icons.arrow_downward_sharp),
                           iconSize: 24,
                           elevation: 16,
-                          items: service.map<DropdownMenuItem<Service>>((Service value) {
+                          items: service
+                              .map<DropdownMenuItem<Service>>((Service value) {
                             return DropdownMenuItem<Service>(
                               value: value,
                               child: Text(value.name),
@@ -138,7 +139,8 @@ class _LaundryDetailScreen extends State<MyStatefulWidget> {
                           icon: const Icon(Icons.arrow_downward_sharp),
                           iconSize: 24,
                           elevation: 16,
-                          items: material.map<DropdownMenuItem<Materials>>((Materials value) {
+                          items: material.map<DropdownMenuItem<Materials>>(
+                              (Materials value) {
                             return DropdownMenuItem<Materials>(
                               value: value,
                               child: Text(value.name),
@@ -155,23 +157,22 @@ class _LaundryDetailScreen extends State<MyStatefulWidget> {
                     child: Padding(
                         padding: EdgeInsets.all(8),
                         child: DropdownButton<String>(
-                          value: detergentState,
-                          icon: const Icon(Icons.arrow_downward_sharp),
-                          iconSize: 24,
-                          elevation: 16,
-                          items: <String>['ariel', 'ace', 'skip']
-                              .map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              detergentState = newValue!;
-                            });
-                          }
-                        ))),
+                            value: detergentState,
+                            icon: const Icon(Icons.arrow_downward_sharp),
+                            iconSize: 24,
+                            elevation: 16,
+                            items: <String>['ariel', 'ace', 'skip']
+                                .map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                detergentState = newValue!;
+                              });
+                            }))),
               ],
             ),
             Row(
