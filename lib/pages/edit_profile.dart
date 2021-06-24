@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:washi_flutter_app/pages/profile_washer.dart';
 import 'package:washi_flutter_app/entities/Profile.dart';
 import 'package:washi_flutter_app/pages/profile_washer.dart';
@@ -16,6 +19,34 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
+  String url = "http://washi-api.azurewebsites.net/api";
+  List userData = [];
+  int userId = 1;
+
+  Future<String> clientData() async {
+    var response = await http.get(
+      Uri.parse(url + "/userprofiles/"),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization':
+        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3IiwiZW1haWwiOiJzdHJpbmciLCJyb2xlIjoiV2FzaGVyIiwibmJmIjoxNjI0MDQ3NTcxLCJleHAiOjE2MjQ2NTIzNzEsImlhdCI6MTYyNDA0NzU3MX0.Bc71N-TzMeuDvLmOKWieTLikqTpMRT23bijWz7cQtkA'
+      },
+    );
+
+    //This permits us to reload data
+    setState(() {
+      var extractData = json.decode(response.body);
+      userData = extractData;
+    });
+
+    return "success";
+  }
+
+  @override
+  void initState() {
+    this.clientData();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,10 +92,12 @@ class _EditProfileState extends State<EditProfile> {
                   ),
                 ),
                 SizedBox(height: 30),
-                buildTextField("Name", "John Doe"),
-                buildTextField("Email", "johndoe@gmail.com"),
-                buildTextField("Phone Number", "987 654 321"),
-                buildTextField("Address", "Av. La Marina 123"),
+                buildTextField("Name", userData[userId]['firstName'].toString() +
+                    " " +
+                    userData[userId]['lastName'].toString()),
+                buildTextField("Email", userData[userId]['corporationName'].toString()),
+                buildTextField("Phone Number", userData[userId]['phoneNumber'].toString()),
+                buildTextField("Address", userData[userId]['address'].toString()),
                 SizedBox(height: 30),
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

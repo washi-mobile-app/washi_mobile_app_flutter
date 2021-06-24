@@ -36,7 +36,7 @@ class ListItemWidget extends State<OrdersList> {
 
   Future<String> makeRequest() async {
     var response = await http.get(
-      Uri.parse(url + "/orders/laundries/" + UserHelper.userid),
+      Uri.parse(url + "/orders/laundries/" + UserHelper.userid.toString()),
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -74,7 +74,6 @@ class ListItemWidget extends State<OrdersList> {
 
   @override
   void initState() {
-    print(url + "/orders/users/" + UserHelper.userid.toString());
     this.makeRequest();
     this.clientData();
   }

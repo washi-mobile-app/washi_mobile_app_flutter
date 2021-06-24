@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:washi_flutter_app/pages/edit_profile.dart';
 import 'package:washi_flutter_app/entities/Profile.dart';
@@ -12,6 +15,35 @@ class ProfileLaundry extends StatefulWidget {
 }
 
 class _ProfileLaundryState extends State<ProfileLaundry> {
+  String url = "http://washi-api.azurewebsites.net/api";
+  List userData = [];
+  int userId = 5;
+
+  Future<String> clientData() async {
+    var response = await http.get(
+      Uri.parse(url + "/userprofiles/"),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization':
+        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3IiwiZW1haWwiOiJzdHJpbmciLCJyb2xlIjoiV2FzaGVyIiwibmJmIjoxNjI0MDQ3NTcxLCJleHAiOjE2MjQ2NTIzNzEsImlhdCI6MTYyNDA0NzU3MX0.Bc71N-TzMeuDvLmOKWieTLikqTpMRT23bijWz7cQtkA'
+      },
+    );
+
+    //This permits us to reload data
+    setState(() {
+      var extractData = json.decode(response.body);
+      userData = extractData;
+    });
+
+    return "success";
+  }
+
+  @override
+  void initState() {
+    this.clientData();
+  }
+
   final Profiles profile = Profiles(
       name: "Don Lavadon",
       email: "donlavadonperu@gmail.com",
@@ -49,25 +81,27 @@ class _ProfileLaundryState extends State<ProfileLaundry> {
                 children: <Widget>[
                   ListTile(
                     title: Text("Name"),
-                    subtitle: Text(profile.name),
+                    subtitle: Text(userData[userId]['firstName'].toString() +
+                        " " +
+                        userData[userId]['lastName'].toString()),
                     leading: Icon(Icons.person),
                   ),
                   Divider(),
                   ListTile(
-                    title: Text("Email"),
-                    subtitle: Text(profile.email),
+                    title: Text("Corporation Name"),
+                    subtitle: Text(userData[userId]['corporationName'].toString()),
                     leading: Icon(Icons.email),
                   ),
                   Divider(),
                   ListTile(
-                    title: Text("Phone number"),
-                    subtitle: Text(profile.number),
+                    title: Text("Número"),
+                    subtitle: Text(userData[userId]['phoneNumber'].toString()),
                     leading: Icon(Icons.phone),
                   ),
                   Divider(),
                   ListTile(
                     title: Text("Address"),
-                    subtitle: Text(profile.address),
+                    subtitle: Text(userData[userId]['address'].toString()),
                     leading: Icon(Icons.cases),
                   ),
                 ],
