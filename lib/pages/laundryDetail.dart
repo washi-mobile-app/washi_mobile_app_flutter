@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+import 'package:flutter/cupertino.dart';
 import 'package:washi_flutter_app/entities/Laundry.dart';
+import 'package:washi_flutter_app/entities/Service.dart';
+import 'package:washi_flutter_app/entities/materials.dart';
 import 'package:washi_flutter_app/pages/offers.dart';
 import 'package:washi_flutter_app/pages/orders.dart';
+import 'package:washi_flutter_app/util/user_helper.dart';
 
 class LaundryDetailScreen extends StatelessWidget {
   final Laundry laundry;
@@ -25,11 +32,60 @@ class MyStatefulWidget extends StatefulWidget {
 
 class _LaundryDetailScreen extends State<MyStatefulWidget> {
   final Laundry laundry;
+  String url = "http://washi-api.azurewebsites.net/api";
+  List<Service> service = [];
+  List<Materials> material = [];
+  List detergent = [];
+
+  Future<String> serviceData() async {
+    var response = await http.get(
+      Uri.parse(url + "/materials"),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + UserHelper.token
+      },
+    );
+
+    //This permits us to reload data
+    setState(() {
+      var extractData = json.decode(response.body);
+      service = extractData;
+    });
+
+    return response.body.toString();
+  }
+
+  Future<String> materialData() async {
+    var response = await http.get(
+      Uri.parse(url + "/materials"),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + UserHelper.token
+      },
+    );
+
+    //This permits us to reload data
+    setState(() {
+      var extractData = json.decode(response.body);
+      material = extractData;
+    });
+
+    return response.body.toString();
+  }
+
+  @override
+  initState() {
+    this.serviceData();
+    this.materialData();
+    super.initState();
+  }
 
   _LaundryDetailScreen(this.laundry);
-  String service = 'Lavado al agua';
-  String material = 'lana';
-  String detergent = 'ariel';
+  Service serviceState = service[0];
+  Materials materialState = material[0];
+  String detergentState = 'ariel';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,25 +112,20 @@ class _LaundryDetailScreen extends State<MyStatefulWidget> {
                   flex: 45,
                     child: Padding(
                         padding: EdgeInsets.all(8),
-                        child: DropdownButton<String>(
-                          value: service,
+                        child: DropdownButton<Service>(
+                          value: serviceState,
                           icon: const Icon(Icons.arrow_downward_sharp),
                           iconSize: 24,
                           elevation: 16,
-                          items: <String>[
-                            'Lavado al agua',
-                            'Lavado al seco',
-                            'Lavado a mano',
-                            'planchado'
-                          ].map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
+                          items: service.map<DropdownMenuItem<Service>>((Service value) {
+                            return DropdownMenuItem<Service>(
                               value: value,
-                              child: Text(value),
+                              child: Text(value.name),
                             );
                           }).toList(),
-                          onChanged: (String? newValue) {
+                          onChanged: (Service? newValue) {
                             setState(() {
-                              service = newValue!;
+                              serviceState = newValue!;
                             });
                           },
                         ))),
@@ -82,21 +133,20 @@ class _LaundryDetailScreen extends State<MyStatefulWidget> {
                     flex: 30,
                     child: Padding(
                         padding: EdgeInsets.all(8),
-                        child: DropdownButton<String>(
-                          value: material,
+                        child: DropdownButton<Materials>(
+                          value: materialState,
                           icon: const Icon(Icons.arrow_downward_sharp),
                           iconSize: 24,
                           elevation: 16,
-                          items: <String>['lana', 'algodon', 'lino']
-                              .map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
+                          items: material.map<DropdownMenuItem<Materials>>((Materials value) {
+                            return DropdownMenuItem<Materials>(
                               value: value,
-                              child: Text(value),
+                              child: Text(value.name),
                             );
                           }).toList(),
-                          onChanged: (String? newValue) {
+                          onChanged: (Materials? newValue) {
                             setState(() {
-                              material = newValue!;
+                              materialState = newValue!;
                             });
                           },
                         ))),
@@ -105,7 +155,7 @@ class _LaundryDetailScreen extends State<MyStatefulWidget> {
                     child: Padding(
                         padding: EdgeInsets.all(8),
                         child: DropdownButton<String>(
-                          value: detergent,
+                          value: detergentState,
                           icon: const Icon(Icons.arrow_downward_sharp),
                           iconSize: 24,
                           elevation: 16,
@@ -118,7 +168,7 @@ class _LaundryDetailScreen extends State<MyStatefulWidget> {
                           }).toList(),
                           onChanged: (String? newValue) {
                             setState(() {
-                              detergent = newValue!;
+                              detergentState = newValue!;
                             });
                           }
                         ))),
@@ -165,7 +215,7 @@ class _LaundryDetailScreen extends State<MyStatefulWidget> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (BuildContext context) => Orders()));
+                              builder: (BuildContext context) => Orders1()));
                     }),
                 MaterialButton(
                     height: 60,
