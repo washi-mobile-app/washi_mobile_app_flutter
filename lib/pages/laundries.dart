@@ -3,7 +3,11 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:washi_flutter_app/entities/Laundry.dart';
 import 'package:washi_flutter_app/pages/washer_navbar.dart';
+
+import 'laundryDetail.dart';
+
 class Laundries extends StatefulWidget {
   @override
   LaundriesState createState() => LaundriesState();
@@ -17,13 +21,14 @@ class LaundriesState extends State<Laundries> {
   final TextStyle biggerFont = TextStyle(fontSize: 18);
   List saved = [];
 
-  Future<String> makeRequest()async{
+  Future<String> makeRequest() async {
     var response = await http.get(
-      Uri.parse(url+"/userprofiles/laundries/"),
+      Uri.parse(url + "/userprofiles/laundries/"),
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3IiwiZW1haWwiOiJzdHJpbmciLCJyb2xlIjoiV2FzaGVyIiwibmJmIjoxNjI0MDQ3NTcxLCJleHAiOjE2MjQ2NTIzNzEsImlhdCI6MTYyNDA0NzU3MX0.Bc71N-TzMeuDvLmOKWieTLikqTpMRT23bijWz7cQtkA'
+        'Authorization':
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3IiwiZW1haWwiOiJzdHJpbmciLCJyb2xlIjoiV2FzaGVyIiwibmJmIjoxNjI0MDQ3NTcxLCJleHAiOjE2MjQ2NTIzNzEsImlhdCI6MTYyNDA0NzU3MX0.Bc71N-TzMeuDvLmOKWieTLikqTpMRT23bijWz7cQtkA'
       },
     );
     //This permits us to reload data
@@ -35,13 +40,14 @@ class LaundriesState extends State<Laundries> {
     return response.body.toString();
   }
 
-  Future<String> clientData()async{
+  Future<String> clientData() async {
     var response = await http.get(
       Uri.parse(url + "/users/"),
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3IiwiZW1haWwiOiJzdHJpbmciLCJyb2xlIjoiV2FzaGVyIiwibmJmIjoxNjI0MDQ3NTcxLCJleHAiOjE2MjQ2NTIzNzEsImlhdCI6MTYyNDA0NzU3MX0.Bc71N-TzMeuDvLmOKWieTLikqTpMRT23bijWz7cQtkA'
+        'Authorization':
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3IiwiZW1haWwiOiJzdHJpbmciLCJyb2xlIjoiV2FzaGVyIiwibmJmIjoxNjI0MDQ3NTcxLCJleHAiOjE2MjQ2NTIzNzEsImlhdCI6MTYyNDA0NzU3MX0.Bc71N-TzMeuDvLmOKWieTLikqTpMRT23bijWz7cQtkA'
       },
     );
 
@@ -55,7 +61,7 @@ class LaundriesState extends State<Laundries> {
   }
 
   @override
-  initState(){
+  initState() {
     this.makeRequest();
     this.clientData();
     super.initState();
@@ -75,101 +81,120 @@ class LaundriesState extends State<Laundries> {
             )
           ],
         ),
-        body: Column(children: [
-          TextField(
-            onChanged: (value) {
-              print(value);
-              List results = [];
-              if (value.isEmpty) {
-                results = laundries;
-              } else {
-                for(var j = 0; j < laundries.length; j++){
-                  results = laundries
-                      .where(laundries[j]["corporationName"].toLowerCase().contains(value.toLowerCase()))
-                      .toList();
-                }
-              }
-
-              // Refresh the UI
-              setState(() {
-                laundries = results;
-              });
-            },
-            decoration: InputDecoration(
-                labelText: 'Buscar', suffixIcon: Icon(Icons.search)),
-          ),
-          SizedBox(
-            height: 2,
-          ),
-          Expanded(child: ListView.builder(
-              padding: EdgeInsets.all(16),
-              itemCount: laundries == null ? 0 : laundries.length,
-              itemBuilder: (BuildContext context, int i) {
-                int userId = 0;
-
-                for(var j = 0; j < userData.length; j++){
-                  if( userData[j]['id'] == laundries[i]['userId'] ){
-                    userId = j;
+        body: Column(
+          children: [
+            TextField(
+              onChanged: (value) {
+                print(value);
+                List results = [];
+                if (value.isEmpty) {
+                  results = laundries;
+                } else {
+                  for (var j = 0; j < laundries.length; j++) {
+                    results = laundries
+                        .where(laundries[j]["corporationName"]
+                            .toLowerCase()
+                            .contains(value.toLowerCase()))
+                        .toList();
                   }
                 }
 
-                int districtId = laundries[i]["districtId"];
-                String district;
+                // Refresh the UI
+                setState(() {
+                  laundries = results;
+                });
+              },
+              decoration: InputDecoration(
+                  labelText: 'Buscar', suffixIcon: Icon(Icons.search)),
+            ),
+            SizedBox(
+              height: 2,
+            ),
+            Expanded(
+                child: ListView.builder(
+                    padding: EdgeInsets.all(16),
+                    itemCount: laundries == null ? 0 : laundries.length,
+                    itemBuilder: (BuildContext context, int i) {
+                      int userId = 0;
 
-                if(districtId == 1){ district = "San Miguel";}
-                else if(districtId == 2){district = "Cercado de Lima";}
-                else if(districtId == 3){district = "San Isidro";}
-                else{district = "Chorrillos";}
+                      for (var j = 0; j < userData.length; j++) {
+                        if (userData[j]['id'] == laundries[i]['userId']) {
+                          userId = j;
+                        }
+                      }
 
-                final bool alreadySaved = saved.contains(laundries[i]);
+                      int districtId = laundries[i]["districtId"];
+                      String district;
 
-                return Center(
-                  child: Card(
-                    child: InkWell(
-                      splashColor: Colors.blue.withAlpha(30),
-                      child: Padding(
-                        padding: EdgeInsets.all(8),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            ListTile(
-                              leading:FlutterLogo(size: 56.0),
-                              title: Text(laundries[i]["corporationName"]),
-                              subtitle: Text(
-                                  "${laundries[i]["address"]}\n${district}\n${userData[userId]["email"]}\n${laundries[i]["phoneNumber"]}"),
-                              trailing: Row(
+                      if (districtId == 1) {
+                        district = "San Miguel";
+                      } else if (districtId == 2) {
+                        district = "Cercado de Lima";
+                      } else if (districtId == 3) {
+                        district = "San Isidro";
+                      } else {
+                        district = "Chorrillos";
+                      }
+
+                      final bool alreadySaved = saved.contains(laundries[i]);
+
+                      return Center(
+                        child: Card(
+                          child: InkWell(
+                            splashColor: Colors.blue.withAlpha(30),
+                            onTap: () => goDetails(laundries[i]),
+                            child: Padding(
+                              padding: EdgeInsets.all(8),
+                              child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
-                                  IconButton(
-                                    icon: Icon(
-                                      //if (alreadySaved == true)
-                                      alreadySaved ? Icons.favorite : Icons.favorite_border,
-                                      color: alreadySaved ? Colors.red : null,
+                                  ListTile(
+                                    leading: FlutterLogo(size: 56.0),
+                                    title:
+                                        Text(laundries[i]["corporationName"]),
+                                    subtitle: Text(
+                                        "${laundries[i]["address"]}\n${district}\n${userData[userId]["email"]}\n${laundries[i]["phoneNumber"]}"),
+                                    trailing: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: <Widget>[
+                                        IconButton(
+                                          icon: Icon(
+                                            //if (alreadySaved == true)
+                                            alreadySaved
+                                                ? Icons.favorite
+                                                : Icons.favorite_border,
+                                            color: alreadySaved
+                                                ? Colors.red
+                                                : null,
+                                          ),
+                                          onPressed: () {
+                                            setState(() {
+                                              if (alreadySaved) {
+                                                saved.remove(laundries[i]);
+                                              } else {
+                                                saved.add(laundries[i]);
+                                              }
+                                            });
+                                          },
+                                        ),
+                                      ],
                                     ),
-                                    onPressed: () {
-                                      setState(() {
-                                        if (alreadySaved) {
-                                          saved.remove(laundries[i]);
-                                        } else {
-                                          saved.add(laundries[i]);
-                                        }
-                                      });
-                                    },
                                   ),
                                 ],
                               ),
                             ),
-                          ],
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
-                );
-              }
-          ))
-        ],
-        )
-    );
+                      );
+                    }))
+          ],
+        ));
+  }
+
+  void goDetails(Laundry laundry) {
+    print("AAAAAAAAAAAAAAAAAA");
+    Navigator.of(context).push(MaterialPageRoute<void>(
+        builder: (_) => LaundryDetailScreen(laundry: laundry)));
   }
 
   void laundrySaved() {
@@ -185,8 +210,8 @@ class LaundriesState extends State<Laundries> {
           itemBuilder: (BuildContext context, int i) {
             int userId = 0;
 
-            for(var j = 0; j < userData.length; j++){
-              if( userData[j]['id'] == userData[i]['userId'] ){
+            for (var j = 0; j < userData.length; j++) {
+              if (userData[j]['id'] == userData[i]['userId']) {
                 userId = j;
               }
             }
@@ -194,10 +219,15 @@ class LaundriesState extends State<Laundries> {
             int districtId = saved[i]["districtId"];
             String district;
 
-            if(districtId == 1){ district = "San Miguel";}
-            else if(districtId == 2){district = "Cercado de Lima";}
-            else if(districtId == 3){district = "San Isidro";}
-            else{district = "Chorrillos";}
+            if (districtId == 1) {
+              district = "San Miguel";
+            } else if (districtId == 2) {
+              district = "Cercado de Lima";
+            } else if (districtId == 3) {
+              district = "San Isidro";
+            } else {
+              district = "Chorrillos";
+            }
 
             return Center(
               child: Card(
@@ -209,7 +239,7 @@ class LaundriesState extends State<Laundries> {
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         ListTile(
-                          leading:FlutterLogo(size: 56.0),
+                          leading: FlutterLogo(size: 56.0),
                           title: Text(saved[i]["corporationName"]),
                           subtitle: Text(
                               "${saved[i]["address"]}\n${district}\n${userData[userId]["email"]}\n${saved[i]["phoneNumber"]}"),
@@ -222,7 +252,9 @@ class LaundriesState extends State<Laundries> {
                                   Icons.expand_more_rounded,
                                   color: Colors.deepPurpleAccent,
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  goDetails(saved[i]);
+                                },
                               ),
                             ],
                           ),
@@ -239,4 +271,3 @@ class LaundriesState extends State<Laundries> {
     }));
   }
 }
-
