@@ -8,6 +8,7 @@ import 'package:washi_flutter_app/pages/promotions_list.dart';
 import 'package:washi_flutter_app/pages/profile_washer.dart';
 import 'package:washi_flutter_app/pages/sign_in.dart';
 import 'package:washi_flutter_app/pages/washer_notifications.dart';
+import 'package:washi_flutter_app/pages/washer_promotions.dart';
 
 import '../main.dart';
 
@@ -64,6 +65,14 @@ class WasherNavBar extends StatelessWidget {
               MaterialPageRoute(builder: (BuildContext context) => Orders()));
         },
       ),
+          ListTile(
+            leading: Icon(Icons.wallet_giftcard),
+            title: Text('Promociones'),
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => WasherPromotions()));
+            },
+          ),
       ListTile(
         leading: Icon(Icons.location_on),
         title: Text('Mis direcciones'),

@@ -192,7 +192,6 @@ class LaundriesState extends State<Laundries> {
   }
 
   void goDetails(Laundry laundry) {
-    print("AAAAAAAAAAAAAAAAAA");
     Navigator.of(context).push(MaterialPageRoute<void>(
         builder: (_) => LaundryDetailScreen(laundry: laundry)));
   }

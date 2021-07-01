@@ -5,12 +5,12 @@ import 'package:washi_flutter_app/pages/washer_navbar.dart';
 import 'package:http/http.dart' as http;
 import 'AdminPromotion.dart';
 
-class Promotions extends StatefulWidget {
+class WasherPromotions extends StatefulWidget {
   @override
-  _PromotionsState createState() => _PromotionsState();
+  _WasherPromotionsState createState() => _WasherPromotionsState();
 }
 
-class _PromotionsState extends State<Promotions> {
+class _WasherPromotionsState extends State<WasherPromotions> {
   String url = "http://washi-api.azurewebsites.net/api";
   List promotions = [];
 
@@ -54,14 +54,6 @@ class _PromotionsState extends State<Promotions> {
               backgroundImage: AssetImage("lib/assets/logo.png"),
             ),
           );
-        },
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      floatingActionButton: new FloatingActionButton(
-        child: Text("New"),
-        onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (BuildContext) => AdminPromotion()));
         },
       ),
     );
