@@ -3,7 +3,7 @@ import 'package:washi_flutter_app/pages/laundries.dart';
 import 'package:washi_flutter_app/pages/laundry_orders.dart';
 import 'package:washi_flutter_app/pages/orders.dart';
 import 'package:washi_flutter_app/pages/profile_laundry.dart';
-import 'package:washi_flutter_app/pages/promotions_list.dart';
+import 'package:washi_flutter_app/pages/laundry_promotions.dart';
 import 'package:washi_flutter_app/pages/washer_notifications.dart';
 
 import '../main.dart';

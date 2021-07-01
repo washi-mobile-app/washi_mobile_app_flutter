@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:washi_flutter_app/pages/promotions_list.dart';
-import 'package:washi_flutter_app/pages/washer_navbar.dart';
+import 'package:washi_flutter_app/pages/laundry_promotions.dart';
+import 'package:http/http.dart' as http;
+import 'dart:math';
 
 class AdminPromotion extends StatefulWidget {
   @override
@@ -8,8 +10,55 @@ class AdminPromotion extends StatefulWidget {
 }
 
 class _AdminPromotionState extends State<AdminPromotion> {
+  String url = "http://washi-api.azurewebsites.net/api";
+  List promotions = [];
+
   String dropdownValue = 'Calzado';
-  String secondownValue = '10%';
+  String secondownValue = '10';
+
+  Future<String> postPromotion(int percentage) async {
+    var random = new Random();
+    int materialId= random.nextInt(5);
+
+    final response = await http.post(
+          Uri.parse(url + "/promotions/"),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3IiwiZW1haWwiOiJzdHJpbmciLCJyb2xlIjoiV2FzaGVyIiwibmJmIjoxNjI1MTA3MjUzLCJleHAiOjE2MjU3MTIwNTMsImlhdCI6MTYyNTEwNzI1M30.cWb7j1WKhecCXMs68ubkebAz09-WvX2rSZwGi5caABQ'
+      },
+      body: jsonEncode({
+        "laundryServiceMaterialId": materialId,
+        "discountPercentage": percentage,
+        "initialDate": "2021-07-01T02:36:59.740Z",
+        "endingDate": "2021-07-01T02:36:59.740Z"
+      }),
+    );
+
+    //This permits us to reload data
+    setState(() {
+      var extractData = json.decode(response.body);
+      promotions = extractData;
+    });
+
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      return "success";
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to update promotion.' +
+          percentage.toString() +
+          "//" +
+          materialId.toString());
+    }
+  }
+
+  @override
+  initState() {
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +104,7 @@ class _AdminPromotionState extends State<AdminPromotion> {
                       secondownValue = newValue!;
                     });
                   },
-                  items: <String>['10%', '15%', '20%', '25%']
+                  items: <String>['10', '15', '20', '25']
                       .map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
@@ -70,7 +119,8 @@ class _AdminPromotionState extends State<AdminPromotion> {
       floatingActionButton: new FloatingActionButton(
         child: Text("Add"),
         onPressed: () {
-          Navigator.push(context,
+          postPromotion(int.parse(secondownValue));
+          Navigator.pop(context,
               MaterialPageRoute(builder: (BuildContext) => Promotions()));
         },
       ),
