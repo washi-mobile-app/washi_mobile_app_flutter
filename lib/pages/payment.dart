@@ -65,7 +65,7 @@ class _PaymentState extends State<Payment> {
       ),
       body: Container(
         child: new ListView.builder(
-            itemCount: 2,
+            itemCount: 1,
             itemBuilder: (BuildContext context, int index) =>
                 buildCard(context, index)),
       ),
