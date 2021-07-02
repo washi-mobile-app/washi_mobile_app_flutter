@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:washi_flutter_app/pages/make_payment.dart';
 class LaundryDetailScreen extends StatelessWidget {
   final String title;
   final String district;
@@ -163,7 +164,8 @@ class _LaundryDetailScreen extends State<MyStatefulWidget> {
                       style: TextStyle(fontSize: 16),
                     ),
                     onPressed: () {
-
+                      Navigator.push(
+                          context, MaterialPageRoute(builder: (context) => PaymentAction()));
                     }
                 )
               ],

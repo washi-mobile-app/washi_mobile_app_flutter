@@ -25,19 +25,19 @@ class OrdersList extends StatefulWidget {
 class ListItemWidget extends State<OrdersList> {
   final List<Order> orders = <Order>[
     Order(
-        laundryName: "Lavandería Don Pepe",
+        laundryName: "El Lavadin",
         cost: "S/. 44.60",
         status: "En camino",
         date: "05/05/21",
         deliveryDate: "08/05/21"),
     Order(
-        laundryName: "Lavandería Don Pepe",
+        laundryName: "Don Lavadón",
         cost: "S/. 30.50",
         status: "En camino",
         date: "06/06/21",
         deliveryDate: "08/06/21"),
     Order(
-        laundryName: "Lavandería Don Pepe",
+        laundryName: "Gianluca Lavadula",
         cost: "S/. 35.00",
         status: "Entregado",
         date: "28/04/21",
@@ -69,7 +69,7 @@ class ListItemWidget extends State<OrdersList> {
                                     topLeft: Radius.circular(5)),
                                 image: DecorationImage(
                                   fit: BoxFit.cover,
-                                  image: AssetImage("lib/assets/picture.jpeg"),
+                                  image: AssetImage("lib/assets/laundryService.jpeg"),
                                 )),
                           ),
                           Container(
