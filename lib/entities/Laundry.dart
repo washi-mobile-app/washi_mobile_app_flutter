@@ -5,7 +5,6 @@ class Laundry {
   String email;
   String district;
   int phone;
-  String imageLogo;
 
   Laundry(
       {required this.name,
@@ -13,6 +12,5 @@ class Laundry {
       required this.price,
       required this.email,
       required this.district,
-      required this.phone,
-      required this.imageLogo});
+      required this.phone});
 }

@@ -1,179 +1,128 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
-import 'package:washi_flutter_app/entities/Laundry.dart';
-import 'package:washi_flutter_app/entities/Service.dart';
-import 'package:washi_flutter_app/entities/materials.dart';
-import 'package:washi_flutter_app/pages/offers.dart';
-import 'package:washi_flutter_app/pages/order1.dart';
-import 'package:washi_flutter_app/pages/orders.dart';
-import 'package:washi_flutter_app/util/user_helper.dart';
-
 class LaundryDetailScreen extends StatelessWidget {
-  final Laundry laundry;
-  const LaundryDetailScreen({Key? key, required this.laundry})
+  final String title;
+  final String district;
+  final int phone;
+  final String email;
+
+  const LaundryDetailScreen({Key? key, required this.title, required this.district, required this.phone, required this.email})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: MyStatefulWidget(laundry: laundry),
+      body: MyStatefulWidget(title: title, district: district, phone: phone, email: email),
     );
   }
 }
 
 class MyStatefulWidget extends StatefulWidget {
-  final Laundry laundry;
-  const MyStatefulWidget({Key? key, required this.laundry}) : super(key: key);
+  final String title;
+  final String district;
+  final int phone;
+  final String email;
+
+  const MyStatefulWidget({Key? key, required this.title, required this.district, required this.phone, required this.email}) : super(key: key);
 
   @override
-  State<MyStatefulWidget> createState() => _LaundryDetailScreen(laundry);
+  State<MyStatefulWidget> createState() => _LaundryDetailScreen(title, district, phone, email);
 }
 
 class _LaundryDetailScreen extends State<MyStatefulWidget> {
-  final Laundry laundry;
-  String url = "http://washi-api.azurewebsites.net/api";
-  static List<Service> service = [];
-  static List<Materials> material = [];
-  List detergent = [];
+  final String title;
+  final String district;
+  final int phone;
+  final String email;
 
-  Future<String> serviceData() async {
-    var response = await http.get(
-      Uri.parse(url + "/materials"),
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': 'Bearer ' + UserHelper.token
-      },
-    );
-
-    //This permits us to reload data
-    setState(() {
-      var extractData = json.decode(response.body);
-      service = extractData;
-    });
-
-    return response.body.toString();
-  }
-
-  Future<String> materialData() async {
-    var response = await http.get(
-      Uri.parse(url + "/materials"),
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': 'Bearer ' + UserHelper.token
-      },
-    );
-
-    //This permits us to reload data
-    setState(() {
-      var extractData = json.decode(response.body);
-      material = extractData;
-    });
-
-    return response.body.toString();
-  }
-
-  @override
-  initState() {
-    this.serviceData();
-    this.materialData();
-    super.initState();
-  }
-
-  _LaundryDetailScreen(this.laundry);
-  Service serviceState = service[0];
-  Materials materialState = material[0];
-  String detergentState = 'ariel';
+  _LaundryDetailScreen(this.title, this.district, this.phone, this.email);
+  String service = 'Lavado al agua';
+  String material = 'lana';
+  String detergent = 'ariel';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text(laundry.name)),
+        appBar: AppBar(title: Text(title)),
         body: Column(
           children: <Widget>[
             Row(
               children: <Widget>[
                 Expanded(
                     child: Padding(
-                  padding: EdgeInsets.all(16),
-                  child: FlutterLogo(size: 56.0),
-                )),
+                      padding: EdgeInsets.all(16),
+                      child: Image(
+                        image: AssetImage("lib/assets/laundryService.jpeg"),
+                        width: 140,
+                        height: 140,
+                      ),
+                    )),
                 Expanded(
                     child: Padding(
-                        padding: EdgeInsets.all(16),
+                        padding: EdgeInsets.all(4),
                         child: Text(
-                            '${laundry.district} \n \n ${laundry.phone} \n \n ${laundry.email}')))
+                            '${district} \n \n ${phone.toString()} \n \n ${email}')))
               ],
             ),
             Row(
               children: <Widget>[
                 Expanded(
-                    flex: 45,
-                    child: Padding(
-                        padding: EdgeInsets.all(8),
-                        child: DropdownButton<Service>(
-                          value: serviceState,
-                          icon: const Icon(Icons.arrow_downward_sharp),
-                          iconSize: 24,
-                          elevation: 16,
-                          items: service
-                              .map<DropdownMenuItem<Service>>((Service value) {
-                            return DropdownMenuItem<Service>(
-                              value: value,
-                              child: Text(value.name),
-                            );
-                          }).toList(),
-                          onChanged: (Service? newValue) {
-                            setState(() {
-                              serviceState = newValue!;
-                            });
-                          },
-                        ))),
-                Expanded(
-                    flex: 30,
-                    child: Padding(
-                        padding: EdgeInsets.all(8),
-                        child: DropdownButton<Materials>(
-                          value: materialState,
-                          icon: const Icon(Icons.arrow_downward_sharp),
-                          iconSize: 24,
-                          elevation: 16,
-                          items: material.map<DropdownMenuItem<Materials>>(
-                              (Materials value) {
-                            return DropdownMenuItem<Materials>(
-                              value: value,
-                              child: Text(value.name),
-                            );
-                          }).toList(),
-                          onChanged: (Materials? newValue) {
-                            setState(() {
-                              materialState = newValue!;
-                            });
-                          },
-                        ))),
-                Expanded(
-                    flex: 25,
                     child: Padding(
                         padding: EdgeInsets.all(8),
                         child: DropdownButton<String>(
-                            value: detergentState,
-                            icon: const Icon(Icons.arrow_downward_sharp),
-                            iconSize: 24,
-                            elevation: 16,
-                            items: <String>['ariel', 'ace', 'skip']
-                                .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                detergentState = newValue!;
-                              });
-                            }))),
+                          value: service,
+                          icon: const Icon(Icons.arrow_downward_sharp),
+                          iconSize: 24,
+                          elevation: 16,
+                          items: <String>[
+                            'Lavado al agua',
+                            'Lavado al seco',
+                            'Lavado a mano',
+                            'planchado'
+                          ].map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              service = newValue!;
+                            });
+                          },
+                        ))),
+                Expanded(
+                    child: Padding(
+                        padding: EdgeInsets.all(8),
+                        child: DropdownButton<String>(
+                          value: material,
+                          icon: const Icon(Icons.arrow_downward_sharp),
+                          iconSize: 24,
+                          elevation: 16,
+                          items: <String>['lana', 'algodon', 'lino']
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                          onChanged: (_) {},
+                        ))),
+                Expanded(
+                    child: Padding(
+                        padding: EdgeInsets.all(16),
+                        child: DropdownButton<String>(
+                          value: detergent,
+                          icon: const Icon(Icons.arrow_downward_sharp),
+                          iconSize: 24,
+                          elevation: 16,
+                          items: <String>['ariel', 'ace', 'skip']
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                          onChanged: (String? newValue) {},
+                        ))),
               ],
             ),
             Row(
@@ -214,26 +163,9 @@ class _LaundryDetailScreen extends State<MyStatefulWidget> {
                       style: TextStyle(fontSize: 16),
                     ),
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) => Orders1()));
-                    }),
-                MaterialButton(
-                    height: 60,
-                    minWidth: 90,
-                    color: Colors.white,
-                    textColor: Color.fromRGBO(121, 47, 218, 1),
-                    child: Text(
-                      'Ver ofertas',
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) => Offers()));
-                    })
+
+                    }
+                )
               ],
             )
           ],

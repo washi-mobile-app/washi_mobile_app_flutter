@@ -52,6 +52,7 @@ flutter:
     - lib/assets/oferta1.png
     - lib/assets/oferta2.png
     - lib/assets/oferta3.png
+    - lib/assets/laundryService.jpeg
     - lib/database/db.json
   #   - images/a_dot_ham.jpeg
 

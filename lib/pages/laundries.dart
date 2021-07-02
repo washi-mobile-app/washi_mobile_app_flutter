@@ -3,11 +3,8 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:washi_flutter_app/entities/Laundry.dart';
+import 'package:washi_flutter_app/pages/laundryDetail.dart';
 import 'package:washi_flutter_app/pages/washer_navbar.dart';
-
-import 'laundryDetail.dart';
-
 class Laundries extends StatefulWidget {
   @override
   LaundriesState createState() => LaundriesState();
@@ -28,7 +25,7 @@ class LaundriesState extends State<Laundries> {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
         'Authorization':
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3IiwiZW1haWwiOiJzdHJpbmciLCJyb2xlIjoiV2FzaGVyIiwibmJmIjoxNjI0MDQ3NTcxLCJleHAiOjE2MjQ2NTIzNzEsImlhdCI6MTYyNDA0NzU3MX0.Bc71N-TzMeuDvLmOKWieTLikqTpMRT23bijWz7cQtkA'
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3IiwiZW1haWwiOiJzdHJpbmciLCJyb2xlIjoiV2FzaGVyIiwibmJmIjoxNjI1MTA3MjUzLCJleHAiOjE2MjU3MTIwNTMsImlhdCI6MTYyNTEwNzI1M30.cWb7j1WKhecCXMs68ubkebAz09-WvX2rSZwGi5caABQ'
       },
     );
     //This permits us to reload data
@@ -47,7 +44,7 @@ class LaundriesState extends State<Laundries> {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
         'Authorization':
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3IiwiZW1haWwiOiJzdHJpbmciLCJyb2xlIjoiV2FzaGVyIiwibmJmIjoxNjI0MDQ3NTcxLCJleHAiOjE2MjQ2NTIzNzEsImlhdCI6MTYyNDA0NzU3MX0.Bc71N-TzMeuDvLmOKWieTLikqTpMRT23bijWz7cQtkA'
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3IiwiZW1haWwiOiJzdHJpbmciLCJyb2xlIjoiV2FzaGVyIiwibmJmIjoxNjI1MTA3MjUzLCJleHAiOjE2MjU3MTIwNTMsImlhdCI6MTYyNTEwNzI1M30.cWb7j1WKhecCXMs68ubkebAz09-WvX2rSZwGi5caABQ'
       },
     );
 
@@ -66,6 +63,7 @@ class LaundriesState extends State<Laundries> {
     this.clientData();
     super.initState();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -142,7 +140,7 @@ class LaundriesState extends State<Laundries> {
                         child: Card(
                           child: InkWell(
                             splashColor: Colors.blue.withAlpha(30),
-                            onTap: () => goDetails(laundries[i]),
+                            onTap: () => goDetails(laundries[i]["corporationName"], district, laundries[i]["phoneNumber"], userData[userId]["email"]),
                             child: Padding(
                               padding: EdgeInsets.all(8),
                               child: Column(
@@ -191,9 +189,9 @@ class LaundriesState extends State<Laundries> {
         ));
   }
 
-  void goDetails(Laundry laundry) {
+  void goDetails(String title, String district, int phone, String email) {
     Navigator.of(context).push(MaterialPageRoute<void>(
-        builder: (_) => LaundryDetailScreen(laundry: laundry)));
+        builder: (_) => LaundryDetailScreen(title: title, district: district, phone: phone, email: email)));
   }
 
   void laundrySaved() {
@@ -252,7 +250,7 @@ class LaundriesState extends State<Laundries> {
                                   color: Colors.deepPurpleAccent,
                                 ),
                                 onPressed: () {
-                                  goDetails(saved[i]);
+                                  goDetails(saved[i]["corporationName"], district, saved[i]["phoneNumber"], userData[userId]["email"]);
                                 },
                               ),
                             ],
