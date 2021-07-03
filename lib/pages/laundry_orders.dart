@@ -131,6 +131,16 @@ class ListItemWidget extends State<OrdersList> {
                           "s/ " + (data[i]['orderAmount']).toString() + "0",
                           style: TextStyle(fontSize: 16),
                         ),
+                        Padding(padding: EdgeInsets.symmetric(vertical: 3.0)),
+                        Text(
+                          "Direccion: " + (data[i]['deliveryAddress']),
+                          style: TextStyle(fontSize: 16),
+                        ),
+                        Padding(padding: EdgeInsets.symmetric(vertical: 3.0)),
+                        Text(
+                          "Fecha estimada de entrega: " + (data[i]['deliveryDate']).toString(),
+                          style: TextStyle(fontSize: 16),
+                        ),
                         const Padding(
                             padding: EdgeInsets.symmetric(vertical: 1.0)),
                         Text(
@@ -138,6 +148,7 @@ class ListItemWidget extends State<OrdersList> {
                           style:
                               TextStyle(fontSize: 18, color: Colors.blueAccent),
                         ),
+                        
                       ],
                     ),
                   ],

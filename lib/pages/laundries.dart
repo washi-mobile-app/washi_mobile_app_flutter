@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:washi_flutter_app/pages/laundryDetail.dart';
 import 'package:washi_flutter_app/pages/washer_navbar.dart';
+import 'package:washi_flutter_app/util/user_helper.dart';
 class Laundries extends StatefulWidget {
   @override
   LaundriesState createState() => LaundriesState();
@@ -24,8 +25,7 @@ class LaundriesState extends State<Laundries> {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization':
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3IiwiZW1haWwiOiJzdHJpbmciLCJyb2xlIjoiV2FzaGVyIiwibmJmIjoxNjI1MTA3MjUzLCJleHAiOjE2MjU3MTIwNTMsImlhdCI6MTYyNTEwNzI1M30.cWb7j1WKhecCXMs68ubkebAz09-WvX2rSZwGi5caABQ'
+        'Authorization': 'Bearer ' + UserHelper.token
       },
     );
     //This permits us to reload data
@@ -43,8 +43,7 @@ class LaundriesState extends State<Laundries> {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization':
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3IiwiZW1haWwiOiJzdHJpbmciLCJyb2xlIjoiV2FzaGVyIiwibmJmIjoxNjI1MTA3MjUzLCJleHAiOjE2MjU3MTIwNTMsImlhdCI6MTYyNTEwNzI1M30.cWb7j1WKhecCXMs68ubkebAz09-WvX2rSZwGi5caABQ'
+        'Authorization': 'Bearer ' + UserHelper.token
       },
     );
 
@@ -74,7 +73,7 @@ class LaundriesState extends State<Laundries> {
           title: Text("Lista de Lavanderías"),
           actions: <Widget>[
             IconButton(
-              icon: Icon(Icons.article_outlined),
+              icon: Icon(Icons.favorite),
               onPressed: laundrySaved,
             )
           ],

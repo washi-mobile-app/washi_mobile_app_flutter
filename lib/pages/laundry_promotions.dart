@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:washi_flutter_app/util/user_helper.dart';
 import 'AdminPromotion.dart';
 
 class Promotions extends StatefulWidget {
@@ -18,7 +19,7 @@ class _PromotionsState extends State<Promotions> {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3IiwiZW1haWwiOiJzdHJpbmciLCJyb2xlIjoiV2FzaGVyIiwibmJmIjoxNjI1MTA3MjUzLCJleHAiOjE2MjU3MTIwNTMsImlhdCI6MTYyNTEwNzI1M30.cWb7j1WKhecCXMs68ubkebAz09-WvX2rSZwGi5caABQ'
+        'Authorization': 'Bearer ' + UserHelper.token
       },
     );
 
@@ -26,6 +27,23 @@ class _PromotionsState extends State<Promotions> {
     setState(() {
       var extractData = json.decode(response.body);
       promotions = extractData;
+    });
+
+    return "success";
+  }
+
+  Future<String> delete(int id) async {
+    var response = await http.delete(
+      Uri.parse(url + "/promotions/" + id.toString()),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + UserHelper.token
+      },
+    );
+
+    //This permits us to reload data
+    setState(() {
     });
 
     return "success";
@@ -51,6 +69,21 @@ class _PromotionsState extends State<Promotions> {
             leading: CircleAvatar(
               backgroundImage: AssetImage("lib/assets/logo.png"),
             ),
+            trailing:Row(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              IconButton(
+                icon: Icon(
+                  Icons.delete_outline,
+                  size: 20.0,
+                  color: Colors.brown[900],
+                ),
+                onPressed: () {
+                  delete(promotions[i]['id']);
+                },
+              ),
+            ],
+          ),
           );
         },
       ),

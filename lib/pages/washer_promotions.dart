@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:washi_flutter_app/pages/washer_navbar.dart';
 import 'package:http/http.dart' as http;
+import 'package:washi_flutter_app/util/user_helper.dart';
 import 'AdminPromotion.dart';
 
 class WasherPromotions extends StatefulWidget {
@@ -20,7 +21,7 @@ class _WasherPromotionsState extends State<WasherPromotions> {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3IiwiZW1haWwiOiJzdHJpbmciLCJyb2xlIjoiV2FzaGVyIiwibmJmIjoxNjI1MTA3MjUzLCJleHAiOjE2MjU3MTIwNTMsImlhdCI6MTYyNTEwNzI1M30.cWb7j1WKhecCXMs68ubkebAz09-WvX2rSZwGi5caABQ'
+        'Authorization': 'Bearer ' + UserHelper.token
       },
     );
 

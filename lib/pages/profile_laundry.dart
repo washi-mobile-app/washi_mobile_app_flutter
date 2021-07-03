@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:washi_flutter_app/pages/edit_profile.dart';
 import 'package:washi_flutter_app/entities/Profile.dart';
 import 'package:washi_flutter_app/pages/laundry_navbar.dart';
+import 'package:washi_flutter_app/util/user_helper.dart';
 import 'washer_navbar.dart';
 
 class ProfileLaundry extends StatefulWidget {
@@ -25,8 +26,7 @@ class _ProfileLaundryState extends State<ProfileLaundry> {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization':
-        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3IiwiZW1haWwiOiJzdHJpbmciLCJyb2xlIjoiV2FzaGVyIiwibmJmIjoxNjI0MDQ3NTcxLCJleHAiOjE2MjQ2NTIzNzEsImlhdCI6MTYyNDA0NzU3MX0.Bc71N-TzMeuDvLmOKWieTLikqTpMRT23bijWz7cQtkA'
+        'Authorization': 'Bearer ' + UserHelper.token
       },
     );
 

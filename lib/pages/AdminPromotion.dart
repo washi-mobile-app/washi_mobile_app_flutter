@@ -4,6 +4,8 @@ import 'package:washi_flutter_app/pages/laundry_promotions.dart';
 import 'package:http/http.dart' as http;
 import 'dart:math';
 
+import 'package:washi_flutter_app/util/user_helper.dart';
+
 class AdminPromotion extends StatefulWidget {
   @override
   _AdminPromotionState createState() => _AdminPromotionState();
@@ -25,7 +27,7 @@ class _AdminPromotionState extends State<AdminPromotion> {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3IiwiZW1haWwiOiJzdHJpbmciLCJyb2xlIjoiV2FzaGVyIiwibmJmIjoxNjI1MTA3MjUzLCJleHAiOjE2MjU3MTIwNTMsImlhdCI6MTYyNTEwNzI1M30.cWb7j1WKhecCXMs68ubkebAz09-WvX2rSZwGi5caABQ'
+        'Authorization': 'Bearer ' + UserHelper.token
       },
       body: jsonEncode({
         "laundryServiceMaterialId": materialId,
